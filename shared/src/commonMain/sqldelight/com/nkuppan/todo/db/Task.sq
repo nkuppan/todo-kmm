@@ -1,0 +1,20 @@
+CREATE TABLE Task (
+  id TEXT NOT NULL PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  status INTEGER NOT NULL DEFAULT 1,
+  created_on REAL NOT NULL,
+  updated_on REAL NOT NULL
+);
+
+insertTask:
+INSERT OR REPLACE INTO Task(id, title, description, status, created_on, updated_on)VALUES(?,?,?,?,?,?);
+
+findAllTask:
+SELECT * FROM Task;
+
+findTaskById:
+SELECT * FROM Task WHERE id = ?;
+
+removeAllTask:
+DELETE FROM Task;

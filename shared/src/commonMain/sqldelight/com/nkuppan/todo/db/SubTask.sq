@@ -1,0 +1,23 @@
+CREATE TABLE SubTask (
+  id TEXT NOT NULL PRIMARY KEY,
+  description TEXT NOT NULL,
+  parent_task_id TEXT NOT NULL,
+  status INTEGER NOT NULL DEFAULT 1,
+  created_on REAL NOT NULL,
+  updated_on REAL NOT NULL
+);
+
+insertTask:
+INSERT OR REPLACE INTO SubTask(id, description, parent_task_id, status, created_on, updated_on)VALUES(?,?,?,?,?,?);
+
+findAllSubTask:
+SELECT * FROM SubTask WHERE parent_task_id = ?;
+
+findTaskById:
+SELECT * FROM SubTask WHERE id = ?;
+
+removeThisSubTask:
+DELETE FROM SubTask WHERE parent_task_id = ?;
+
+removeAllSubTask:
+DELETE FROM SubTask;
