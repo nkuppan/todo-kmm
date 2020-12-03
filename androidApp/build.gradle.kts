@@ -1,34 +1,13 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-android-extensions")
-}
-group = "com.jetbrains.handson"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    gradlePluginPortal()
-    google()
-    jcenter()
-    mavenCentral()
-}
-dependencies {
-    implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.cardview:cardview:1.0.0")
+    kotlin("android.extensions")
 }
 android {
     compileSdkVersion(30)
     defaultConfig {
         applicationId = "com.nkuppan.todo"
-        minSdkVersion(24)
+        minSdkVersion(21)
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
@@ -46,5 +25,25 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+}
+
+dependencies {
+
+    implementation(project(":shared"))
+
+    implementation(com.nkuppan.todo.buildsrc.Libs.Google.material)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.appCompat)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.constraintLayout)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.swipeRefreshLayout)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.recyclerView)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.cardView)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Core.ktx)
+
+    implementation(com.nkuppan.todo.buildsrc.Libs.KotlinX.Coroutine.android)
+
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.uiKtx)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.fragmentKtx)
+    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Core.ktx)
 }
 

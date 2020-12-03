@@ -9,21 +9,21 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
 
     private val dbQuery = database.taskQueries
 
-    fun clearDatabase() {
+    suspend fun clearDatabase() {
         dbQuery.transaction {
             dbQuery.removeAllTask()
         }
     }
 
-    fun getAllTasks(): List<Task> {
+    suspend fun getAllTasks(): List<Task> {
         return dbQuery.findAllTask().executeAsList()
     }
 
-    fun findThisTask(aId: String): List<Task> {
+    suspend fun findThisTask(aId: String): List<Task> {
         return dbQuery.findTaskById(aId).executeAsList()
     }
 
-    fun insertTask(aTask: Task) {
+    suspend fun insertTask(aTask: Task) {
         dbQuery.insertTask(
             id = aTask.id,
             title = aTask.title,

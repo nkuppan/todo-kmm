@@ -6,19 +6,23 @@ buildscript {
         mavenCentral()
     }
 
-    val kotlinVersion = "1.4.0"
-    val sqlDelightVersion: String by project
-
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
-        classpath("com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion")
+        //Below plugins are common gradle plugin to support android
+        classpath(com.nkuppan.todo.buildsrc.Libs.androidGradlePlugin)
+        classpath(com.nkuppan.todo.buildsrc.Libs.Kotlin.gradlePlugin)
+
+        //Below plugins are common gradle plugin to support android
+        classpath(com.nkuppan.todo.buildsrc.Libs.Google.servicesPlugin)
+        classpath(com.nkuppan.todo.buildsrc.Libs.Google.OssLicenses.gradlePlugin)
+        classpath(com.nkuppan.todo.buildsrc.Libs.Firebase.Crashlytics.gradlePlugin)
+        classpath(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.safeArgsGradlePlugin)
+
+        //This below deps are added to support kotlin multi-platform
+
+        classpath(com.nkuppan.todo.buildsrc.Libs.Kotlin.serializationPlugin)
+        classpath(com.nkuppan.todo.buildsrc.Libs.Square.SqlDelight.gradlePlugin)
     }
 }
-
-group = "com.nkuppan.todokmm"
-version = "1.0-SNAPSHOT"
 
 allprojects {
     repositories {
