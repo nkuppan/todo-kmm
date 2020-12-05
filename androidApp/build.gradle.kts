@@ -1,7 +1,12 @@
+import com.nkuppan.todo.buildsrc.Libs
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.android.gms.oss-licenses-plugin")
+    id("com.google.firebase.crashlytics")
 }
 android {
     compileSdkVersion(30)
@@ -31,19 +36,30 @@ dependencies {
 
     implementation(project(":shared"))
 
-    implementation(com.nkuppan.todo.buildsrc.Libs.Google.material)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.appCompat)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.constraintLayout)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.swipeRefreshLayout)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.recyclerView)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.cardView)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Core.ktx)
+    implementation(Libs.Google.material)
+    implementation(Libs.AndroidX.appCompat)
+    implementation(Libs.AndroidX.constraintLayout)
+    implementation(Libs.AndroidX.swipeRefreshLayout)
+    implementation(Libs.AndroidX.recyclerView)
+    implementation(Libs.AndroidX.cardView)
+    implementation(Libs.AndroidX.vectorDrawable)
 
-    implementation(com.nkuppan.todo.buildsrc.Libs.KotlinX.Coroutine.android)
+    implementation(Libs.KotlinX.Coroutine.android)
 
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.uiKtx)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.fragmentKtx)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.fragmentKtx)
-    implementation(com.nkuppan.todo.buildsrc.Libs.AndroidX.Core.ktx)
+    implementation(Libs.AndroidX.Lifecycle.liveDataKtx)
+    implementation(Libs.AndroidX.Lifecycle.viewModelKtx)
+
+    implementation(Libs.AndroidX.Room.ktx)
+    implementation(Libs.AndroidX.Room.runtime)
+    implementation(Libs.AndroidX.Room.compiler)
+
+    implementation(Libs.AndroidX.Navigation.uiKtx)
+    implementation(Libs.AndroidX.Navigation.fragmentKtx)
+
+    implementation(Libs.AndroidX.Core.ktx)
+
+    implementation(platform(Libs.Firebase.firebase))
+    implementation(Libs.Firebase.analytics)
+    implementation(Libs.Firebase.crashlytics)
 }
 

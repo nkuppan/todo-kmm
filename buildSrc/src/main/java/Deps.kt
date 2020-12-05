@@ -27,6 +27,7 @@ object Versions {
         const val viewPager2 = "1.1.0-alpha01"
         const val emoji = "1.2.0-alpha01"
         const val browser = "1.3.0"
+        const val vectorDrawable = "1.1.0"
         const val lifecycle = "2.3.0-beta01"
         const val room = "2.3.0-alpha03"
         const val paging = "3.0.0-alpha10"
@@ -64,6 +65,7 @@ object Versions {
     }
 
     object Firebase {
+        const val firebase = "25.12.0"
         object Crashlytics {
             const val gradlePlugin = "2.4.1"
         }
@@ -110,6 +112,7 @@ object Libs {
         const val cardView = "androidx.cardview:cardview:${Versions.AndroidX.cardView}"
         const val emoji = "androidx.emoji:emoji:${Versions.AndroidX.emoji}"
         const val browser = "androidx.browser:browser:${Versions.AndroidX.browser}"
+        const val vectorDrawable = "androidx.vectordrawable:vectordrawable:${Versions.AndroidX.vectorDrawable}"
 
         object Core {
             const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
@@ -221,6 +224,9 @@ object Libs {
     }
 
     object Firebase {
+        const val  firebase = "com.google.firebase:firebase-bom:${Versions.Firebase.firebase}"
+        const val  crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        const val  analytics = "com.google.firebase:firebase-analytics-ktx"
 
         object Crashlytics {
             const val gradlePlugin =
