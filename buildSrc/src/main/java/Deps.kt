@@ -6,6 +6,10 @@ object Versions {
     const val ktlint = "0.39.0"
     const val coil = "1.1.0"
     const val insetter = "0.3.1"
+    const val versionCode = 1
+    const val versionName = "1.0.0"
+    const val cocoapodsext = "0.11"
+    const val kermit = "0.1.8"
 
     object Kotlin {
         const val kotlin = "1.4.20"
@@ -64,6 +68,7 @@ object Versions {
 
     object Firebase {
         const val firebase = "25.12.0"
+
         object Crashlytics {
             const val gradlePlugin = "2.4.1"
         }
@@ -80,6 +85,8 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
+    const val kermit = "co.touchlab:kermit:${Versions.kermit}"
 
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin.kotlin}"
@@ -110,7 +117,8 @@ object Libs {
         const val cardView = "androidx.cardview:cardview:${Versions.AndroidX.cardView}"
         const val emoji = "androidx.emoji:emoji:${Versions.AndroidX.emoji}"
         const val browser = "androidx.browser:browser:${Versions.AndroidX.browser}"
-        const val vectorDrawable = "androidx.vectordrawable:vectordrawable:${Versions.AndroidX.vectorDrawable}"
+        const val vectorDrawable =
+            "androidx.vectordrawable:vectordrawable:${Versions.AndroidX.vectorDrawable}"
 
         object Core {
             const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
@@ -214,6 +222,12 @@ object Libs {
         object SqlDelight {
             const val gradlePlugin =
                 "com.squareup.sqldelight:gradle-plugin:${Versions.Square.sqlDelight}"
+            const val android =
+                "com.squareup.sqldelight:android-driver:${Versions.Square.sqlDelight}"
+            const val native =
+                "com.squareup.sqldelight:native-driver:${Versions.Square.sqlDelight}"
+            const val runtime =
+                "com.squareup.sqldelight:runtime:${Versions.Square.sqlDelight}"
         }
     }
 
@@ -222,9 +236,9 @@ object Libs {
     }
 
     object Firebase {
-        const val  firebase = "com.google.firebase:firebase-bom:${Versions.Firebase.firebase}"
-        const val  crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
-        const val  analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val firebase = "com.google.firebase:firebase-bom:${Versions.Firebase.firebase}"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
 
         object Crashlytics {
             const val gradlePlugin =

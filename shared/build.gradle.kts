@@ -28,7 +28,6 @@ kotlin {
 
     val ktorVersion = "1.4.0"
     val serializationVersion = "1.0.0-RC"
-    val sqlDelightVersion: String by project
     val coroutinesVersion = "1.3.9-native-mt"
 
     sourceSets {
@@ -38,7 +37,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation(Libs.Square.SqlDelight.runtime)
             }
         }
         val commonTest by getting {
@@ -49,8 +48,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(Libs.Google.material)
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+                implementation(Libs.Square.SqlDelight.android)
             }
         }
         val androidTest by getting {
@@ -62,20 +62,20 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+                implementation(Libs.Square.SqlDelight.native)
             }
         }
         val iosTest by getting
     }
 }
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(Versions.compileSdk)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(Versions.minSdk)
+        targetSdkVersion(Versions.targetSdk)
+        versionCode = Versions.versionCode
+        versionName = Versions.versionName
     }
     buildTypes {
         getByName("release") {

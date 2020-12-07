@@ -7,24 +7,34 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
 
     private val database = MyDatabase(databaseDriverFactoryFactory.createDriver())
 
-    private val dbQuery = database.taskQueries
+    private val taskDBQuery = database.taskQueries
+    private val subTaskDBQuery = database.subTaskQueries
+    private val tagsDBQuery = database.tagsQueries
 
     suspend fun clearDatabase() {
-        dbQuery.transaction {
-            dbQuery.removeAllTask()
+        taskDBQuery.transaction {
+            taskDBQuery.removeAllTask()
         }
     }
 
     suspend fun getAllTasks(): List<Task> {
-        return dbQuery.findAllTask().executeAsList()
+        return taskDBQuery.findAllTask().executeAsList()
     }
 
-    suspend fun findThisTask(aId: String): List<Task> {
-        return dbQuery.findTaskById(aId).executeAsList()
+    suspend fun findThisTask(aId: String): Task? {
+
+        val task = taskDBQuery.findTaskById(aId).executeAsOneOrNull()
+
+        if (task != null) {
+            //TODO read tags and sub tasks
+            //val tagsList = tagsDBQuery.findTagById().executeAsList();
+        }
+
+        return task
     }
 
     suspend fun insertTask(aTask: Task) {
-        dbQuery.insertTask(
+        taskDBQuery.insertTask(
             id = aTask.id,
             title = aTask.title,
             description = aTask.description,

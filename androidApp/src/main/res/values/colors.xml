@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <!-- Support Dark/Light theme -->
+    <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="blue">@android:color/holo_blue_dark</color>
+
+    <!-- Below colors are used to create theme -->
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorOnPrimary">@color/black</color>
+    <color name="colorPrimaryVariant">@color/black</color>
+
+    <color name="colorSecondary">@color/blue</color>
+    <color name="colorOnSecondary">@color/white</color>
+    <color name="colorSecondaryVariant">@color/white</color>
+
+    <color name="colorSurface">@color/white</color>
+    <color name="colorOnSurface">@color/black</color>
+
+    <color name="colorError">@color/red</color>
+    <color name="colorOnError">@color/white</color>
+
+    <color name="colorBackground">@color/white</color>
+    <color name="colorOnBackground">@color/black</color>
 </resources>
