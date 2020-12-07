@@ -1,5 +1,3 @@
-package com.nkuppan.todo.buildsrc
-
 object Versions {
     const val compileSdk = 30
     const val minSdk = 21

@@ -8,19 +8,19 @@ buildscript {
 
     dependencies {
         //Below plugins are common gradle plugin to support android
-        classpath(com.nkuppan.todo.buildsrc.Libs.androidGradlePlugin)
-        classpath(com.nkuppan.todo.buildsrc.Libs.Kotlin.gradlePlugin)
+        classpath(Libs.androidGradlePlugin)
+        classpath(Libs.Kotlin.gradlePlugin)
 
         //Below plugins are common gradle plugin to support android
-        classpath(com.nkuppan.todo.buildsrc.Libs.Google.servicesPlugin)
-        classpath(com.nkuppan.todo.buildsrc.Libs.Google.OssLicenses.gradlePlugin)
-        classpath(com.nkuppan.todo.buildsrc.Libs.Firebase.Crashlytics.gradlePlugin)
-        classpath(com.nkuppan.todo.buildsrc.Libs.AndroidX.Navigation.safeArgsGradlePlugin)
+        classpath(Libs.Google.servicesPlugin)
+        classpath(Libs.Google.OssLicenses.gradlePlugin)
+        classpath(Libs.Firebase.Crashlytics.gradlePlugin)
+        classpath(Libs.AndroidX.Navigation.safeArgsGradlePlugin)
 
         //This below deps are added to support kotlin multi-platform
 
-        classpath(com.nkuppan.todo.buildsrc.Libs.Kotlin.serializationPlugin)
-        classpath(com.nkuppan.todo.buildsrc.Libs.Square.SqlDelight.gradlePlugin)
+        classpath(Libs.Kotlin.serializationPlugin)
+        classpath(Libs.Square.SqlDelight.gradlePlugin)
     }
 }
 
