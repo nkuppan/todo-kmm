@@ -9,5 +9,14 @@
         android:id="@+id/todoListFragment"
         android:name="com.nkuppan.todo.TodoListFragment"
         android:label="fragment_todo_list"
-        tools:layout="@layout/fragment_todo_list" />
+        tools:layout="@layout/fragment_todo_list" >
+        <action
+            android:id="@+id/action_todoListFragment_to_taskCreatDialogFragment"
+            app:destination="@id/taskCreatDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/taskCreatDialogFragment"
+        android:name="com.nkuppan.todo.TaskCreatDialogFragment"
+        android:label="fragment_task_creat_dialog_list_dialog"
+        tools:layout="@layout/fragment_task_creat_dialog_list_dialog" />
 </navigation>

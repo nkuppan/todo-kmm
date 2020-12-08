@@ -11,9 +11,9 @@
     <color name="colorOnPrimary">@color/black</color>
     <color name="colorPrimaryVariant">@color/black</color>
 
-    <color name="colorSecondary">@color/blue</color>
-    <color name="colorOnSecondary">@color/white</color>
-    <color name="colorSecondaryVariant">@color/white</color>
+    <color name="colorSecondary">@color/white</color>
+    <color name="colorOnSecondary">@color/black</color>
+    <color name="colorSecondaryVariant">@color/black</color>
 
     <color name="colorSurface">@color/white</color>
     <color name="colorOnSurface">@color/black</color>
