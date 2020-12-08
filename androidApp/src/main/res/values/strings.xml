@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="add_task">Add Task</string>
-    <string name="app_name">To Do</string>
+    <string name="app_name">To-Do App</string>
     <string name="list_item">List Item</string>
     <string name="no_tasks_available">No tasks available</string>
+    <string name="new_task">New task</string>
+    <string name="add_details">Add details</string>
+    <string name="type_details">Type Details</string>
+    <string name="save">Save</string>
 </resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_16dp">
+
+        <EditText
+            android:id="@+id/task_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:hint="@string/new_task"
+            android:inputType="text"
+            android:text="@={viewModel.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/task_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:hint="@string/add_details"
+            android:inputType="text"
+            android:text="@={viewModel.description}"
+            android:textSize="@dimen/text_size_12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/task_name" />
+
+        <ImageView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:contentDescription="@string/type_details"
+            android:onClick="@{()-> viewModel.addDescriptionClick()}"
+            android:src="@drawable/ic_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/task_description" />
+
+        <ImageView
+            android:id="@+id/date_time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:contentDescription="@string/type_details"
+            android:onClick="@{()-> viewModel.selectDateTimeClick()}"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toEndOf="@id/details"
+            app:layout_constraintTop_toBottomOf="@id/task_description" />
+
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:onClick="@{()-> viewModel.createTaskClick()}"
+            android:text="@string/save"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@id/details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/details" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

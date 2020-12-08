@@ -44,6 +44,8 @@ dependencies {
 
     implementation(project(":shared"))
 
+    implementation("com.ancient.essentials:android-essentials:1.3.0")
+
     implementation(Libs.Google.material)
     implementation(Libs.AndroidX.appCompat)
     implementation(Libs.AndroidX.constraintLayout)

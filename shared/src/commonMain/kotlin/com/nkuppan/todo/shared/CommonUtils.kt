@@ -1,5 +1,5 @@
 package com.nkuppan.todo.shared
 
-expect class CommonUtils {
+expect object CommonUtils {
     fun getRandomUUID(): String
 }
