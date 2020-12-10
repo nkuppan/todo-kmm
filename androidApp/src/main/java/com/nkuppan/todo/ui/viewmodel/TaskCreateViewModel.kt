@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ancient.essentials.extentions.Event
+import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.shared.CommonUtils
@@ -21,13 +22,26 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
     private val _success: MutableLiveData<Event<Unit>> = MutableLiveData()
     val success: LiveData<Event<Unit>> = _success
 
+    private val _selectDateTime: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val selectDateTime: LiveData<Event<Unit>> = _selectDateTime
+
+    private val _snackBarText: MutableLiveData<Event<String>> = MutableLiveData()
+    val snackBarMessage: LiveData<Event<String>> = _snackBarText
+
     fun createTaskClick() {
+
+        if (title.value.isNullOrBlank()) {
+            return
+        }
+
         viewModelScope.launch {
+
             (aApplication as ToDoApplication).repository.insertTask(
                 Task(
                     CommonUtils.getRandomUUID(),
-                    title = title.toString(),
-                    description = description.toString(),
+                    group_id = "1",
+                    title = title.value.toString(),
+                    description = description.value.toString(),
                     status = 1,
                     created_on = Date().time.toDouble(),
                     updated_on = Date().time.toDouble()
@@ -35,14 +49,15 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
             )
 
             _success.value = Event(Unit)
+            _snackBarText.value = Event(aApplication.getString(R.string.successfully_added))
         }
     }
 
     fun selectDateTimeClick() {
-
+        _selectDateTime.value = Event(Unit)
     }
 
     fun addDescriptionClick() {
-
+        _selectDateTime.value = Event(Unit)
     }
 }

@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
+import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTodoListBinding
-import com.nkuppan.todo.db.Task
+import com.nkuppan.todo.model.Task
 import com.nkuppan.todo.ui.adapter.TaskListAdapter
 import com.nkuppan.todo.ui.viewmodel.TaskListViewModel
 
-class TaskListFragment : Fragment() {
+class TaskListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTodoListBinding
 
@@ -33,6 +34,10 @@ class TaskListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.loadTaskList()
+        }
+
         val adapter = TaskListAdapter { task: Task, i: Int ->
             //TODO edit the todo task item
         }
@@ -41,12 +46,15 @@ class TaskListFragment : Fragment() {
 
         viewModel.taskList.observe(this.viewLifecycleOwner, {
             adapter.submitList(it)
+            binding.refreshLayout.isRefreshing = false
         })
 
-        viewModel.loadTaskList()
-    }
+        viewModel.taskGroupList.observe(this.viewLifecycleOwner, {
+            binding.group.adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
+            viewModel.loadTaskList()
+        })
 
-    companion object {
-        fun newInstance() = TaskListFragment()
+        viewModel.loadTaskGroup()
     }
 }

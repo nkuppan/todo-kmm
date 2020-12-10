@@ -1,5 +1,6 @@
 CREATE TABLE Task (
   id TEXT NOT NULL PRIMARY KEY,
+  group_id TEXT NOT NULL,
   title TEXT NOT NULL,
   description TEXT NOT NULL,
   status INTEGER NOT NULL DEFAULT 1,
@@ -8,10 +9,16 @@ CREATE TABLE Task (
 );
 
 insertTask:
-INSERT OR REPLACE INTO Task(id, title, description, status, created_on, updated_on)VALUES(?,?,?,?,?,?);
+INSERT OR REPLACE INTO Task(id, group_id, title, description, status, created_on, updated_on)VALUES(?,?,?,?,?,?,?);
 
 findAllTask:
-SELECT * FROM Task;
+SELECT * FROM Task WHERE group_id = ?;
+
+findPendingTask:
+SELECT * FROM Task WHERE status IN(1) AND  group_id = ?;
+
+findCompletedTask:
+SELECT * FROM Task WHERE status IN(2) AND  group_id = ?;
 
 findTaskById:
 SELECT * FROM Task WHERE id = ?;

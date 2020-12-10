@@ -6,4 +6,6 @@
     <dimen name="list_item_spacing_half">8dp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
 </resources>

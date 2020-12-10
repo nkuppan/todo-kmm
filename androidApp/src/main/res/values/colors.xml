@@ -4,16 +4,16 @@
     <color name="white">@android:color/white</color>
     <color name="black">@android:color/black</color>
     <color name="red">@android:color/holo_red_dark</color>
-    <color name="blue">@android:color/holo_blue_dark</color>
+    <color name="blue">#1A73E8</color>
 
     <!-- Below colors are used to create theme -->
     <color name="colorPrimary">@color/white</color>
     <color name="colorOnPrimary">@color/black</color>
     <color name="colorPrimaryVariant">@color/black</color>
 
-    <color name="colorSecondary">@color/white</color>
-    <color name="colorOnSecondary">@color/black</color>
-    <color name="colorSecondaryVariant">@color/black</color>
+    <color name="colorSecondary">@color/blue</color>
+    <color name="colorOnSecondary">@color/white</color>
+    <color name="colorSecondaryVariant">@color/blue</color>
 
     <color name="colorSurface">@color/white</color>
     <color name="colorOnSurface">@color/black</color>

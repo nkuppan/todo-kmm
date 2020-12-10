@@ -71,9 +71,5 @@ dependencies {
     implementation(platform(Libs.Firebase.firebase))
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.crashlytics)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
 }
 

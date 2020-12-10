@@ -8,4 +8,5 @@
     <string name="add_details">Add details</string>
     <string name="type_details">Type Details</string>
     <string name="save">Save</string>
+    <string name="successfully_added">"Task successfully added "</string>
 </resources>

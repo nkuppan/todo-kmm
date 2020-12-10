@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.ancient.essentials.view.adapter.DataBoundListAdapter
 import com.nkuppan.todo.databinding.AdapterTodoItemBinding
-import com.nkuppan.todo.db.Task
+import com.nkuppan.todo.model.Task
 
 class TaskListAdapter(private val listener: ((Task, Int) -> Unit)?) :
     DataBoundListAdapter<Task, AdapterTodoItemBinding>(

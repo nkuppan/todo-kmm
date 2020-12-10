@@ -6,7 +6,6 @@ CREATE TABLE Tags (
   updated_on REAL NOT NULL
 );
 
-
 insertTask:
 INSERT OR REPLACE INTO Tags(id, tag_name, tag_color, created_on, updated_on)VALUES(?,?,?,?,?);
 
@@ -15,6 +14,9 @@ SELECT * FROM Tags;
 
 findTagById:
 SELECT * FROM Tags WHERE id = ?;
+
+findTagByName:
+SELECT * FROM Tags WHERE tag_name = ?;
 
 removeAllTags:
 DELETE FROM Tags;

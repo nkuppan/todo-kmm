@@ -1,0 +1,18 @@
+CREATE TABLE TaskGroup (
+  id TEXT NOT NULL PRIMARY KEY,
+  group_name TEXT NOT NULL,
+  created_on REAL NOT NULL,
+  updated_on REAL NOT NULL
+);
+
+insertGroup:
+INSERT OR REPLACE INTO TaskGroup(id, group_name, created_on, updated_on)VALUES(?,?,?,?);
+
+findAllGroup:
+SELECT * FROM TaskGroup;
+
+findGroupById:
+SELECT * FROM TaskGroup WHERE id = ?;
+
+removeGroup:
+DELETE FROM TaskGroup WHERE id = ?;

@@ -12,17 +12,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_16dp">
+        android:paddingTop="@dimen/margin_8dp"
+        android:paddingBottom="@dimen/margin_8dp">
 
         <EditText
             android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_24dp"
             android:autofillHints=""
             android:background="@android:color/transparent"
             android:hint="@string/new_task"
             android:inputType="text"
+            android:paddingTop="@dimen/app_margin_8dp"
+            android:paddingBottom="@dimen/app_margin_8dp"
             android:text="@={viewModel.title}"
+            android:textColorHint="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,12 +37,17 @@
             android:id="@+id/task_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginStart="@dimen/margin_24dp"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:layout_marginEnd="@dimen/margin_24dp"
             android:autofillHints=""
             android:background="@android:color/transparent"
             android:hint="@string/add_details"
             android:inputType="text"
+            android:paddingTop="@dimen/app_margin_8dp"
+            android:paddingBottom="@dimen/app_margin_8dp"
             android:text="@={viewModel.description}"
+            android:textColorHint="?attr/colorOnPrimary"
             android:textSize="@dimen/text_size_12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,36 +55,42 @@
 
         <ImageView
             android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_8dp"
             android:contentDescription="@string/type_details"
             android:onClick="@{()-> viewModel.addDescriptionClick()}"
+            android:padding="@dimen/app_margin_12dp"
             android:src="@drawable/ic_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/task_description" />
+            app:layout_constraintTop_toBottomOf="@id/task_description"
+            app:tint="?attr/colorSecondary" />
 
         <ImageView
             android:id="@+id/date_time_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_marginTop="@dimen/margin_16dp"
             android:contentDescription="@string/type_details"
             android:onClick="@{()-> viewModel.selectDateTimeClick()}"
+            android:padding="@dimen/app_margin_12dp"
             android:src="@drawable/ic_calendar"
             app:layout_constraintStart_toEndOf="@id/details"
-            app:layout_constraintTop_toBottomOf="@id/task_description" />
+            app:layout_constraintTop_toBottomOf="@id/task_description"
+            app:tint="?attr/colorSecondary" />
 
         <TextView
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:alpha="@{viewModel.title.length() > 0 ? 1.0f : 0.5f}"
             android:gravity="center"
-            android:minWidth="70dp"
+            android:minWidth="80dp"
             android:onClick="@{()-> viewModel.createTaskClick()}"
             android:text="@string/save"
-            android:textAllCaps="true"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="@dimen/text_size_16sp"
             app:layout_constraintBottom_toBottomOf="@id/details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/details" />
