@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
@@ -50,8 +49,8 @@ class TaskListFragment : BaseFragment() {
         })
 
         viewModel.taskGroupList.observe(this.viewLifecycleOwner, {
-            binding.group.adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
+            //binding.group.adapter =
+            //    ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
             viewModel.loadTaskList()
         })
 

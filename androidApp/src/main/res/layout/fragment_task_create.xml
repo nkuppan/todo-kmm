@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel" />
@@ -38,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_24dp"
-            android:layout_marginTop="@dimen/margin_4dp"
             android:layout_marginEnd="@dimen/margin_24dp"
             android:autofillHints=""
             android:background="@android:color/transparent"
@@ -49,6 +50,7 @@
             android:text="@={viewModel.description}"
             android:textColorHint="?attr/colorOnPrimary"
             android:textSize="@dimen/text_size_12sp"
+            android:visibility="@{viewModel.showDescription ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/task_name" />
@@ -58,6 +60,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_8dp"
+            android:background="?attr/listChoiceBackgroundIndicator"
             android:contentDescription="@string/type_details"
             android:onClick="@{()-> viewModel.addDescriptionClick()}"
             android:padding="@dimen/app_margin_12dp"
@@ -71,6 +74,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_16dp"
+            android:background="?attr/listChoiceBackgroundIndicator"
             android:contentDescription="@string/type_details"
             android:onClick="@{()-> viewModel.selectDateTimeClick()}"
             android:padding="@dimen/app_margin_12dp"
@@ -85,6 +89,7 @@
             android:layout_height="0dp"
             android:layout_marginEnd="@dimen/margin_16dp"
             android:alpha="@{viewModel.title.length() > 0 ? 1.0f : 0.5f}"
+            android:background="?attr/listChoiceBackgroundIndicator"
             android:gravity="center"
             android:minWidth="80dp"
             android:onClick="@{()-> viewModel.createTaskClick()}"

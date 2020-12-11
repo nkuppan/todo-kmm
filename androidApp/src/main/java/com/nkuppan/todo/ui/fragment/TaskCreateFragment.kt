@@ -11,12 +11,12 @@ import com.ancient.essentials.extentions.setupStringSnackbar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.nkuppan.todo.R
-import com.nkuppan.todo.databinding.FragmentTaskCreateDialogBinding
+import com.nkuppan.todo.databinding.FragmentTaskCreateBinding
 import com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel
 
 class TaskCreateFragment : BottomSheetDialogFragment() {
 
-    private var dataBinding: FragmentTaskCreateDialogBinding by autoCleared()
+    private var dataBinding: FragmentTaskCreateBinding by autoCleared()
 
     private var viewModel: TaskCreateViewModel by autoCleared()
 
@@ -24,9 +24,9 @@ class TaskCreateFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_task_create_dialog, container, false)
+        val view = inflater.inflate(R.layout.fragment_task_create, container, false)
         viewModel = ViewModelProvider(this).get(TaskCreateViewModel::class.java)
-        dataBinding = FragmentTaskCreateDialogBinding.bind(view)
+        dataBinding = FragmentTaskCreateBinding.bind(view)
         dataBinding.viewModel = viewModel
         dataBinding.lifecycleOwner = this.viewLifecycleOwner
         return view

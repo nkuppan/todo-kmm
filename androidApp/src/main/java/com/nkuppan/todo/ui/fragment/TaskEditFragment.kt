@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ancient.essentials.extentions.EventObserver
 import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
-import com.nkuppan.todo.databinding.FragmentTaskCreateDialogBinding
+import com.nkuppan.todo.databinding.FragmentTaskCreateBinding
 import com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel
 
 class TaskEditFragment : BaseFragment() {
@@ -19,9 +19,9 @@ class TaskEditFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_task_create_dialog, container, false)
+        val view = inflater.inflate(R.layout.fragment_task_create, container, false)
         viewModel = ViewModelProvider(this).get(TaskCreateViewModel::class.java)
-        val binding = FragmentTaskCreateDialogBinding.bind(view)
+        val binding = FragmentTaskCreateBinding.bind(view)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
         return view

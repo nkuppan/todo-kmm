@@ -21,7 +21,7 @@
         android:id="@+id/taskCreateDialogFragment"
         android:name="com.nkuppan.todo.ui.fragment.TaskCreateFragment"
         android:label="fragment_task_create_dialog_list_dialog"
-        tools:layout="@layout/fragment_task_create_dialog" >
+        tools:layout="@layout/fragment_task_create" >
         <action
             android:id="@+id/action_taskCreateDialogFragment_to_dateTimePickerFragment"
             app:destination="@id/dateTimePickerFragment" />
@@ -30,7 +30,7 @@
         android:id="@+id/taskEditFragment"
         android:name="com.nkuppan.todo.ui.fragment.TaskEditFragment"
         android:label="TaskEditFragment"
-        tools:layout="@layout/fragment_task_create_dialog" >
+        tools:layout="@layout/fragment_task_create" >
         <action
             android:id="@+id/action_taskEditFragment_to_dateTimePickerFragment"
             app:destination="@id/dateTimePickerFragment" />

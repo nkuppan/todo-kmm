@@ -19,6 +19,8 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
     var description: MutableLiveData<String> = MutableLiveData()
 
+    var showDescription: MutableLiveData<Boolean> = MutableLiveData()
+
     private val _success: MutableLiveData<Event<Unit>> = MutableLiveData()
     val success: LiveData<Event<Unit>> = _success
 
@@ -58,6 +60,6 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
     }
 
     fun addDescriptionClick() {
-        _selectDateTime.value = Event(Unit)
+        showDescription.value = true
     }
 }
