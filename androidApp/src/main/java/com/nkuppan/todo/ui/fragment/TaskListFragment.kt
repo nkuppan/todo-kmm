@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.ancient.essentials.extentions.autoCleared
 import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTodoListBinding
 import com.nkuppan.todo.model.Task
-import com.nkuppan.todo.ui.adapter.TaskListAdapter
+import com.nkuppan.todo.ui.adapter.CompletedTaskListAdapter
+import com.nkuppan.todo.ui.adapter.PendingTaskListAdapter
 import com.nkuppan.todo.ui.viewmodel.TaskListViewModel
 
 class TaskListFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentTodoListBinding
+    private var binding: FragmentTodoListBinding by autoCleared()
 
-    private lateinit var viewModel: TaskListViewModel
+    private var viewModel: TaskListViewModel by autoCleared()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,23 +39,46 @@ class TaskListFragment : BaseFragment() {
             viewModel.loadTaskList()
         }
 
-        val adapter = TaskListAdapter { task: Task, i: Int ->
-            //TODO edit the todo task item
-        }
+        loadPendingTask()
 
-        binding.taskList.adapter = adapter
+        loadCompletedTasks()
 
-        viewModel.taskList.observe(this.viewLifecycleOwner, {
-            adapter.submitList(it)
-            binding.refreshLayout.isRefreshing = false
-        })
-
-        viewModel.taskGroupList.observe(this.viewLifecycleOwner, {
+        viewModel.taskGroupNameList.observe(this.viewLifecycleOwner, {
             //binding.group.adapter =
             //    ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
             viewModel.loadTaskList()
         })
 
         viewModel.loadTaskGroup()
+    }
+
+    private fun loadPendingTask() {
+        val adapter = PendingTaskListAdapter { task: Task, i: Int ->
+            if (i == 1) {
+                //TODO
+            } else if (i == 2) {
+                viewModel.saveThisTaskAsCompleted(task)
+            }
+        }
+
+        binding.pendingTaskList.adapter = adapter
+
+        viewModel.taskList.observe(this.viewLifecycleOwner, {
+            adapter.submitList(it)
+            binding.refreshLayout.isRefreshing = false
+        })
+    }
+
+    private fun loadCompletedTasks() {
+        val completedTaskAdapter = CompletedTaskListAdapter { task: Task, i: Int ->
+            //TODO
+        }
+
+        binding.completedTaskList.adapter = completedTaskAdapter
+
+        viewModel.completedList.observe(this.viewLifecycleOwner, {
+            completedTaskAdapter.submitList(it)
+            binding.refreshLayout.isRefreshing = false
+        })
     }
 }

@@ -16,3 +16,6 @@ SELECT * FROM TaskGroup WHERE id = ?;
 
 removeGroup:
 DELETE FROM TaskGroup WHERE id = ?;
+
+removeAll:
+DELETE FROM TaskGroup;

@@ -1,5 +1,4 @@
 buildscript {
-    val kotlin_version by extra("1.4.21")
     repositories {
         gradlePluginPortal()
         jcenter()
@@ -19,10 +18,8 @@ buildscript {
         classpath(Libs.AndroidX.Navigation.safeArgsGradlePlugin)
 
         //This below deps are added to support kotlin multi-platform
-
         classpath(Libs.Kotlin.serializationPlugin)
         classpath(Libs.Square.SqlDelight.gradlePlugin)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 

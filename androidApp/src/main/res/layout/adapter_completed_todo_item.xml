@@ -17,16 +17,16 @@
         android:paddingEnd="@dimen/margin_16dp"
         android:paddingBottom="@dimen/margin_8dp">
 
-        <RadioButton
+        <ImageView
             android:id="@+id/mark_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
+            android:contentDescription="@string/completed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_done"
+            app:tint="@android:color/holo_green_dark" />
 
         <TextView
             android:id="@+id/title"
@@ -39,7 +39,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mark_complete"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setStrike="@{true}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

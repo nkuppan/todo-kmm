@@ -17,6 +17,10 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
     suspend fun clearDatabase() {
         taskQuery.transaction {
             taskQuery.removeAllTask()
+            subTaskQuery.removeAllSubTask()
+            tagsQuery.removeAllTags()
+            taskAndTagsQuery.removeAll()
+            taskGroupQuery.removeAll()
         }
     }
 

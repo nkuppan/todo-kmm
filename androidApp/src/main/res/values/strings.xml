@@ -10,4 +10,7 @@
     <string name="save">Save</string>
     <string name="successfully_added">"Task successfully added "</string>
     <string name="my_list">My List</string>
+    <string name="completed">Completed</string>
+    <string name="completed_count">Completed (%d)</string>
+    <string name="open_completed_container">open completed container</string>
 </resources>

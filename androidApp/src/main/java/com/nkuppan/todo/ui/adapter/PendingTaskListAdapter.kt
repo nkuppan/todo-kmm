@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.ancient.essentials.view.adapter.DataBoundListAdapter
-import com.nkuppan.todo.databinding.AdapterTodoItemBinding
+import com.nkuppan.todo.databinding.AdapterPendingTodoItemBinding
 import com.nkuppan.todo.model.Task
 
-class TaskListAdapter(private val listener: ((Task, Int) -> Unit)?) :
-    DataBoundListAdapter<Task, AdapterTodoItemBinding>(
+class PendingTaskListAdapter(private val listener: ((Task, Int) -> Unit)?) :
+    DataBoundListAdapter<Task, AdapterPendingTodoItemBinding>(
         diffCallback = object : DiffUtil.ItemCallback<Task>() {
 
             override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
@@ -25,18 +25,24 @@ class TaskListAdapter(private val listener: ((Task, Int) -> Unit)?) :
         }
     ) {
 
-    override fun bind(binding: AdapterTodoItemBinding, item: Task) {
+    override fun bind(binding: AdapterPendingTodoItemBinding, item: Task) {
         binding.viewModel = item
     }
 
-    override fun createBinding(parent: ViewGroup): AdapterTodoItemBinding {
-        val dataBinding = AdapterTodoItemBinding.inflate(
+    override fun createBinding(parent: ViewGroup): AdapterPendingTodoItemBinding {
+        val dataBinding = AdapterPendingTodoItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
 
         dataBinding.root.setOnClickListener {
+            dataBinding.viewModel?.let {
+                listener?.invoke(it, 1)
+            }
+        }
+
+        dataBinding.markComplete.setOnCheckedChangeListener { aView, aStatus ->
             dataBinding.viewModel?.let {
                 listener?.invoke(it, 2)
             }

@@ -6,7 +6,6 @@ CREATE TABLE TaskAndTags (
   updated_on REAL NOT NULL
 );
 
-
 insertTaskAndTags:
 INSERT OR REPLACE INTO TaskAndTags(id, task_id, tag_id, created_on, updated_on)VALUES(?,?,?,?,?);
 
@@ -18,3 +17,6 @@ DELETE FROM TaskAndTags WHERE task_id = ?;
 
 removeTaskAndTags:
 DELETE FROM TaskAndTags WHERE task_id = ? AND tag_id = ?;
+
+removeAll:
+DELETE FROM TaskAndTags;

@@ -25,7 +25,8 @@
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,12 +48,60 @@
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/task_list"
+                        android:id="@+id/pending_task_list"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="@{viewModel.noTaskFound ? View.GONE : View.VISIBLE}"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:visibility="@{viewModel.pendingTaskFound ? View.VISIBLE : View.GONE}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/adapter_todo_item" />
+                        tools:listitem="@layout/adapter_pending_todo_item" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey_light"
+                        android:visibility="@{viewModel.completedTaskFound ? View.VISIBLE : View.GONE}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/listChoiceBackgroundIndicator"
+                        android:onClick="@{()-> viewModel.completedTaskClick()}"
+                        android:orientation="horizontal"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
+                        android:visibility="@{viewModel.completedTaskFound ? View.VISIBLE : View.GONE}">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="@{viewModel.completedCountText}"
+                            android:textSize="@dimen/text_size_16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="@dimen/margin_16dp"
+                            android:contentDescription="@string/open_completed_container"
+                            android:src="@{viewModel.openCompletedTaskContainer ? @drawable/ic_arrow_up : @drawable/ic_arrow_down}" />
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/completed_task_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:visibility="@{viewModel.completedTaskFound &amp;&amp; viewModel.openCompletedTaskContainer ? View.VISIBLE : View.GONE}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/adapter_pending_todo_item" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
@@ -61,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_tasks_available"
                 android:textSize="@dimen/text_size_16sp"
-                android:visibility="@{viewModel.noTaskFound ? View.VISIBLE : View.GONE}"
+                android:visibility="@{!viewModel.pendingTaskFound &amp;&amp; !viewModel.completedTaskFound ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

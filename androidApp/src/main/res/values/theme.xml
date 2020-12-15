@@ -23,10 +23,8 @@
 
     <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Add custom font to the application
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="fontFamily">@font/open_sans</item>
-        -->
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
