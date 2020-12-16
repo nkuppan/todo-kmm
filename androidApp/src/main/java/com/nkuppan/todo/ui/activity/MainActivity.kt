@@ -25,8 +25,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         navController = navHostFragment.navController
 
         binding.actionAdd.setOnClickListener(this)
+
         binding.bottomAppBar.setNavigationOnClickListener {
-            //TODO handle the click listener
+            navController.navigate(R.id.action_todoListFragment_to_groupListFragment)
+        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.action_option) {
+                navController.navigate(R.id.action_todoListFragment_to_settingFragment)
+            }
+            return@setOnMenuItemClickListener true
         }
     }
 

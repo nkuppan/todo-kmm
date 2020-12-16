@@ -13,4 +13,17 @@
     <string name="completed">Completed</string>
     <string name="completed_count">Completed (%d)</string>
     <string name="open_completed_container">open completed container</string>
+    <string name="create_new_list">Create new list</string>
+    <string name="help_amp_feedback"><![CDATA[Help & Feedback]]></string>
+    <string name="options">Options</string>
+    <string name="sort_by">Sort by</string>
+    <string name="my_order">My Order</string>
+    <string name="delete_list">Delete list</string>
+    <string name="default_list">Default list can\'t be deleted</string>
+    <string name="rename_list">Rename list</string>
+    <string name="delete_all_completed_tasks">Delete all completed tasks</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

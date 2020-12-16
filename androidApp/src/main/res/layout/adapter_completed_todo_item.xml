@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.nkuppan.todo.model.Task" />
+            type="com.nkuppan.todo.db.Task" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +21,8 @@
             android:id="@+id/mark_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4dp"
+            android:layout_marginEnd="@dimen/margin_4dp"
             android:contentDescription="@string/completed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

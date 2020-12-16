@@ -3,6 +3,9 @@ package com.nkuppan.todo.shared
 import com.nkuppan.todo.db.MyDatabase
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.db.TaskGroup
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
 
@@ -13,6 +16,38 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
     private val tagsQuery = database.tagsQueries
     private val taskAndTagsQuery = database.taskAndTagsQueries
     private val taskGroupQuery = database.taskGroupQueries
+
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            insertBasicGroups()
+        }
+    }
+
+    private suspend fun insertBasicGroups() {
+
+        val taskGroupList = taskGroupQuery.findAllGroup().executeAsList()
+
+        if (taskGroupList.isNullOrEmpty()) {
+
+            insertTaskGroup(
+                TaskGroup(
+                    CommonUtils.getRandomUUID(),
+                    "My List",
+                    CommonUtils.getDateTime().toDouble(),
+                    CommonUtils.getDateTime().toDouble()
+                )
+            )
+
+            insertTaskGroup(
+                TaskGroup(
+                    CommonUtils.getRandomUUID(),
+                    "Default List",
+                    CommonUtils.getDateTime().toDouble(),
+                    CommonUtils.getDateTime().toDouble()
+                )
+            )
+        }
+    }
 
     suspend fun clearDatabase() {
         taskQuery.transaction {

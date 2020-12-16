@@ -16,12 +16,18 @@
         <action
             android:id="@+id/action_todoListFragment_to_taskEditFragment"
             app:destination="@id/taskEditFragment" />
+        <action
+            android:id="@+id/action_todoListFragment_to_groupListFragment"
+            app:destination="@id/groupListFragment" />
+        <action
+            android:id="@+id/action_todoListFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <dialog
         android:id="@+id/taskCreateDialogFragment"
         android:name="com.nkuppan.todo.ui.fragment.TaskCreateFragment"
         android:label="fragment_task_create_dialog_list_dialog"
-        tools:layout="@layout/fragment_task_create" >
+        tools:layout="@layout/fragment_task_create">
         <action
             android:id="@+id/action_taskCreateDialogFragment_to_dateTimePickerFragment"
             app:destination="@id/dateTimePickerFragment" />
@@ -30,7 +36,7 @@
         android:id="@+id/taskEditFragment"
         android:name="com.nkuppan.todo.ui.fragment.TaskEditFragment"
         android:label="TaskEditFragment"
-        tools:layout="@layout/fragment_task_create" >
+        tools:layout="@layout/fragment_task_create">
         <action
             android:id="@+id/action_taskEditFragment_to_dateTimePickerFragment"
             app:destination="@id/dateTimePickerFragment" />
@@ -39,4 +45,23 @@
         android:id="@+id/dateTimePickerFragment"
         android:name="com.nkuppan.todo.ui.fragment.DateTimePickerFragment"
         android:label="DateTimePickerFragment" />
+    <dialog
+        android:id="@+id/groupListFragment"
+        android:name="com.nkuppan.todo.ui.fragment.TaskGroupListFragment"
+        android:label="fragment_group_list"
+        tools:layout="@layout/fragment_group_list" />
+    <dialog
+        android:id="@+id/settingFragment"
+        android:name="com.nkuppan.todo.ui.fragment.SettingFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingFragment_to_taskGroupEditFragment"
+            app:destination="@id/taskGroupEditFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/taskGroupEditFragment"
+        android:name="com.nkuppan.todo.TaskGroupEditFragment"
+        android:label="fragment_task_group_edit"
+        tools:layout="@layout/fragment_task_group_edit" />
 </navigation>

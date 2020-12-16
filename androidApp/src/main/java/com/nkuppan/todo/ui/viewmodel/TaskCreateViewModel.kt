@@ -10,6 +10,7 @@ import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.shared.CommonUtils
+import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -41,7 +42,7 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
             (aApplication as ToDoApplication).repository.insertTask(
                 Task(
                     CommonUtils.getRandomUUID(),
-                    group_id = "1",
+                    group_id = SettingPrefManager.getSelectedTaskGroup(),
                     title = title.value.toString(),
                     description = description.value.toString(),
                     status = 1,

@@ -9,7 +9,7 @@ import com.ancient.essentials.extentions.autoCleared
 import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTodoListBinding
-import com.nkuppan.todo.model.Task
+import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.ui.adapter.CompletedTaskListAdapter
 import com.nkuppan.todo.ui.adapter.PendingTaskListAdapter
 import com.nkuppan.todo.ui.viewmodel.TaskListViewModel
@@ -44,8 +44,6 @@ class TaskListFragment : BaseFragment() {
         loadCompletedTasks()
 
         viewModel.taskGroupNameList.observe(this.viewLifecycleOwner, {
-            //binding.group.adapter =
-            //    ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, it)
             viewModel.loadTaskList()
         })
 

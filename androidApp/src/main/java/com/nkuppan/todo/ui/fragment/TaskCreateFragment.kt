@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ancient.essentials.extentions.EventObserver
 import com.ancient.essentials.extentions.autoCleared
 import com.ancient.essentials.extentions.setupStringSnackbar
@@ -42,10 +43,11 @@ class TaskCreateFragment : BottomSheetDialogFragment() {
         )
 
         viewModel.selectDateTime.observe(viewLifecycleOwner, EventObserver {
-            //TODO create time selection dialog
+            findNavController().navigate(R.id.action_taskCreateDialogFragment_to_dateTimePickerFragment)
         })
 
         viewModel.success.observe(viewLifecycleOwner, EventObserver {
+            findNavController().setGraph(R.navigation.overall_navigation, null)
             dismiss()
         })
     }
