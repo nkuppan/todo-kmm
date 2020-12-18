@@ -28,20 +28,10 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         val taskGroupList = taskGroupQuery.findAllGroup().executeAsList()
 
         if (taskGroupList.isNullOrEmpty()) {
-
             insertTaskGroup(
                 TaskGroup(
-                    CommonUtils.getRandomUUID(),
+                    "1",
                     "My List",
-                    CommonUtils.getDateTime().toDouble(),
-                    CommonUtils.getDateTime().toDouble()
-                )
-            )
-
-            insertTaskGroup(
-                TaskGroup(
-                    CommonUtils.getRandomUUID(),
-                    "Default List",
                     CommonUtils.getDateTime().toDouble(),
                     CommonUtils.getDateTime().toDouble()
                 )
@@ -71,6 +61,14 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         return taskQuery.findCompletedTask(aGroupId).executeAsList()
     }
 
+    suspend fun removeAllTasks(aTaskGroupId: String) {
+        taskQuery.removeAllTasks(aTaskGroupId)
+    }
+
+    suspend fun removeCompletedTask(aTaskGroupId: String) {
+        taskQuery.removeCompletedTasks(aTaskGroupId)
+    }
+
     suspend fun findThisTask(aId: String): Task? {
 
         val task = taskQuery.findTaskById(aId).executeAsOneOrNull()
@@ -95,6 +93,10 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         )
     }
 
+    suspend fun findGroupById(aTaskGroupId: String): TaskGroup? {
+        return taskGroupQuery.findGroupById(aTaskGroupId).executeAsOneOrNull()
+    }
+
     suspend fun findAllGroups(): List<TaskGroup> {
         return taskGroupQuery.findAllGroup().executeAsList()
     }
@@ -111,5 +113,4 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
             updated_on = aTaskGroup.updated_on
         )
     }
-
 }

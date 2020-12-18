@@ -8,4 +8,8 @@ actual object CommonUtils {
     actual fun getDateTime(): Long {
         TODO("Not yet implemented")
     }
+
+    actual fun getDeviceId(): String {
+        TODO("Not yet implemented")
+    }
 }

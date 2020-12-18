@@ -58,6 +58,7 @@ dependencies {
     implementation(Libs.AndroidX.recyclerView)
     implementation(Libs.AndroidX.cardView)
     implementation(Libs.AndroidX.vectorDrawable)
+    implementation(Libs.AndroidX.preference)
     implementation(Libs.AndroidX.cryptoPreference)
 
     implementation(Libs.AndroidX.Lifecycle.liveDataKtx)
@@ -69,6 +70,8 @@ dependencies {
     implementation(Libs.KotlinX.Coroutine.android)
 
     implementation(Libs.AndroidX.Core.ktx)
+
+    implementation(Libs.Google.OssLicenses.ossLicenses)
 
     implementation(platform(Libs.Firebase.firebase))
     implementation(Libs.Firebase.analytics)

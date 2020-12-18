@@ -10,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentSettingsBinding
 import com.nkuppan.todo.ui.viewmodel.SettingViewModel
+import com.nkuppan.todo.utils.NavigationManager
+import com.nkuppan.todo.utils.SettingPrefManager
 
 class SettingFragment : BottomSheetDialogFragment() {
 
@@ -32,6 +34,11 @@ class SettingFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        viewModel.renameList.observe(this.viewLifecycleOwner, {
+            NavigationManager.openTaskGroupPage(
+                this,
+                SettingPrefManager.getSelectedTaskGroup()
+            )
+        })
     }
 }

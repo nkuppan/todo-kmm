@@ -22,7 +22,7 @@
     </style>
 
     <style name="BaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
+`
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="fontFamily">@font/open_sans</item>
 

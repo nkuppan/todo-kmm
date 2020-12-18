@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ancient.essentials.extentions.EventObserver
+import com.ancient.essentials.extentions.autoCleared
 import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTaskCreateBinding
@@ -13,7 +14,7 @@ import com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel
 
 class TaskEditFragment : BaseFragment() {
 
-    private lateinit var viewModel: TaskCreateViewModel
+    private var viewModel: TaskCreateViewModel by autoCleared()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

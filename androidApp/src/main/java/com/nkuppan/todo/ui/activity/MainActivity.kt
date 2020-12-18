@@ -1,5 +1,7 @@
 package com.nkuppan.todo.ui.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.ActivityMainBinding
+import com.nkuppan.todo.utils.RequestCode
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -47,6 +50,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.action_add -> {
                 navigateToTaskCreate()
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RequestCode.REQUEST_CODE_TASK_GROUP_CREATE && resultCode == Activity.RESULT_OK) {
+            navController.setGraph(R.navigation.overall_navigation, null)
         }
     }
 }

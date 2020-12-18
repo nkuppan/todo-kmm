@@ -38,6 +38,7 @@ object Versions {
         const val hilt = "1.0.0-alpha02"
         const val dataStore = "1.0.0-alpha05"
         const val crypto = "1.1.0-alpha01"
+        const val preference = "1.1.1"
 
         object Test {
             const val core = "1.3.1-alpha02"
@@ -122,6 +123,7 @@ object Libs {
             "androidx.vectordrawable:vectordrawable:${Versions.AndroidX.vectorDrawable}"
 
         const val cryptoPreference =  "androidx.security:security-crypto:${Versions.AndroidX.crypto}"
+        const val preference =  "androidx.preference:preference:${Versions.AndroidX.preference}"
 
         object Core {
             const val ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"

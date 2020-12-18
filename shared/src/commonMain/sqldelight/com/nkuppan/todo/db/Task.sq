@@ -25,3 +25,9 @@ SELECT * FROM Task WHERE id = ?;
 
 removeAllTask:
 DELETE FROM Task;
+
+removeCompletedTasks:
+DELETE FROM Task WHERE group_id = ? AND status IN(2);
+
+removeAllTasks:
+DELETE FROM Task WHERE group_id = ?;

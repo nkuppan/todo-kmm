@@ -2,13 +2,10 @@ package com.nkuppan.todo.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import com.ancient.essentials.view.adapter.DataBoundListAdapter
-import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.AdapterGroupListItemBinding
 import com.nkuppan.todo.db.TaskGroup
-import com.nkuppan.todo.utils.SettingPrefManager
 
 class TaskGroupListAdapter(private val listener: ((TaskGroup, Int) -> Unit)?) :
     DataBoundListAdapter<TaskGroup, AdapterGroupListItemBinding>(
@@ -38,7 +35,7 @@ class TaskGroupListAdapter(private val listener: ((TaskGroup, Int) -> Unit)?) :
             false
         )
 
-        dataBinding.taskGroup.setOnClickListener {
+        dataBinding.container.setOnClickListener {
             dataBinding.viewModel?.let {
                 listener?.invoke(it, 1)
             }

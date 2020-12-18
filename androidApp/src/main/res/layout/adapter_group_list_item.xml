@@ -11,8 +11,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:setSelection="@{viewModel.id}">
 
         <TextView
             android:id="@+id/task_group"
@@ -23,11 +25,9 @@
             android:paddingStart="64dp"
             android:text="@{viewModel.group_name}"
             android:textColor="?attr/colorOnSurface"
-            android:textIsSelectable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setSelection="@{viewModel.id}"
             tools:text="Default List" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
