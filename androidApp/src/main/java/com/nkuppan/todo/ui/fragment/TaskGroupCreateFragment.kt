@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -67,6 +68,14 @@ class TaskGroupCreateFragment : Fragment() {
             }
 
             return@setOnMenuItemClickListener false
+        }
+
+        dataBinding.groupName.setOnEditorActionListener { _, aActionId, _ ->
+            if (aActionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.createOrUpdateTaskGroup()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
         }
 
         dataBinding.toolbar.setNavigationOnClickListener {

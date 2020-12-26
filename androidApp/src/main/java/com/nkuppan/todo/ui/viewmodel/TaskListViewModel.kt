@@ -34,7 +34,7 @@ class TaskListViewModel(private val aApplication: Application) : AndroidViewMode
     private var taskGroupList = mutableListOf<TaskGroup>()
 
     init {
-        openCompletedTaskContainer.value = true
+        openCompletedTaskContainer.value = SettingPrefManager.isCompletedTaskOpened()
         pendingTaskFound.value = false
         completedTaskFound.value = false
     }
@@ -111,5 +111,6 @@ class TaskListViewModel(private val aApplication: Application) : AndroidViewMode
 
     fun completedTaskClick() {
         openCompletedTaskContainer.value = !openCompletedTaskContainer.value!!
+        SettingPrefManager.storeCompletedTaskOpenedStatus(openCompletedTaskContainer.value!!)
     }
 }

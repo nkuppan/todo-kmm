@@ -23,7 +23,7 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         }
     }
 
-    private suspend fun insertBasicGroups() {
+    private fun insertBasicGroups() {
 
         val taskGroupList = taskGroupQuery.findAllGroup().executeAsList()
 
@@ -39,7 +39,7 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         }
     }
 
-    suspend fun clearDatabase() {
+    fun clearDatabase() {
         taskQuery.transaction {
             taskQuery.removeAllTask()
             subTaskQuery.removeAllSubTask()
@@ -49,27 +49,27 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         }
     }
 
-    suspend fun getAllTasks(aGroupId: String): List<Task> {
+    fun getAllTasks(aGroupId: String): List<Task> {
         return taskQuery.findAllTask(aGroupId).executeAsList()
     }
 
-    suspend fun getPendingTask(aGroupId: String): List<Task> {
+    fun getPendingTask(aGroupId: String): List<Task> {
         return taskQuery.findPendingTask(aGroupId).executeAsList()
     }
 
-    suspend fun getCompletedTask(aGroupId: String): List<Task> {
+    fun getCompletedTask(aGroupId: String): List<Task> {
         return taskQuery.findCompletedTask(aGroupId).executeAsList()
     }
 
-    suspend fun removeAllTasks(aTaskGroupId: String) {
+    fun removeAllTasks(aTaskGroupId: String) {
         taskQuery.removeAllTasks(aTaskGroupId)
     }
 
-    suspend fun removeCompletedTask(aTaskGroupId: String) {
+    fun removeCompletedTask(aTaskGroupId: String) {
         taskQuery.removeCompletedTasks(aTaskGroupId)
     }
 
-    suspend fun findThisTask(aId: String): Task? {
+    fun findThisTask(aId: String): Task? {
 
         val task = taskQuery.findTaskById(aId).executeAsOneOrNull()
 
@@ -81,7 +81,7 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         return task
     }
 
-    suspend fun insertTask(aTask: Task) {
+    fun insertTask(aTask: Task) {
         taskQuery.insertTask(
             id = aTask.id,
             group_id = aTask.group_id,
@@ -93,19 +93,19 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         )
     }
 
-    suspend fun findGroupById(aTaskGroupId: String): TaskGroup? {
+    fun findGroupById(aTaskGroupId: String): TaskGroup? {
         return taskGroupQuery.findGroupById(aTaskGroupId).executeAsOneOrNull()
     }
 
-    suspend fun findAllGroups(): List<TaskGroup> {
+    fun findAllGroups(): List<TaskGroup> {
         return taskGroupQuery.findAllGroup().executeAsList()
     }
 
-    suspend fun removeThisGroup(aTaskGroupId: String) {
+    fun removeThisGroup(aTaskGroupId: String) {
         taskGroupQuery.removeGroup(aTaskGroupId)
     }
 
-    suspend fun insertTaskGroup(aTaskGroup: TaskGroup) {
+    fun insertTaskGroup(aTaskGroup: TaskGroup) {
         taskGroupQuery.insertGroup(
             id = aTaskGroup.id,
             group_name = aTaskGroup.group_name,

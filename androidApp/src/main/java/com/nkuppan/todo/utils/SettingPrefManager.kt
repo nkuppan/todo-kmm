@@ -14,7 +14,7 @@ object SettingPrefManager {
     }
 
     fun getSelectedTaskGroup(): String {
-        return SecuredPreferenceManager.getStringValue(SettingPrefKeys.SELECTED_TASK_GROUP) ?: ""
+        return SecuredPreferenceManager.getStringValue(SettingPrefKeys.SELECTED_TASK_GROUP) ?: "1"
     }
 
     fun storeFilterOption(aFilterType: Int) {
@@ -22,7 +22,15 @@ object SettingPrefManager {
     }
 
     fun getFilterType(): Int {
-        return SecuredPreferenceManager.getIntValue(SettingPrefKeys.SELECTED_FILTER) ?: 1
+        return SecuredPreferenceManager.getIntValue(SettingPrefKeys.SELECTED_FILTER) ?: 0
+    }
+
+    fun storeCompletedTaskOpenedStatus(isOpened: Boolean) {
+        SecuredPreferenceManager.storeValue(SettingPrefKeys.SELECTED_FILTER, isOpened)
+    }
+
+    fun isCompletedTaskOpened(): Boolean {
+        return SecuredPreferenceManager.getBooleanValue(SettingPrefKeys.COMPLETED_TASK_OPENED) ?: false
     }
 }
 
@@ -32,4 +40,6 @@ object SettingPrefKeys {
 
     const val SELECTED_TASK_GROUP = "selected_task_group"
     const val SELECTED_FILTER = "selected_filter"
+
+    const val COMPLETED_TASK_OPENED = "completed_task_opened"
 }
