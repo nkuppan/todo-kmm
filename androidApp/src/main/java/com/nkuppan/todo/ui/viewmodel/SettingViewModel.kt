@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ancient.essentials.extentions.Event
 import com.nkuppan.todo.ToDoApplication
+import com.nkuppan.todo.shared.utils.Constants
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 
@@ -62,7 +63,7 @@ class SettingViewModel(private val aApplication: Application) :
                 aApplication.repository.removeThisGroup(
                     SettingPrefManager.getSelectedTaskGroup()
                 )
-
+                SettingPrefManager.storeSelectedTaskGroup(Constants.DEFAULT_LIST_ID)
                 _taskGroupRemoved.value = Event(Unit)
             }
         }

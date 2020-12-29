@@ -3,10 +3,7 @@ package com.nkuppan.todo.utils
 import android.os.Build
 import com.nkuppan.todo.shared.CommonUtils
 
-object Constants {
-    const val EMAIL_ACCOUNT: String = "naveenkumarn2@gmail.com"
-    const val EMAIL_SUBJECT: String = "ToDo | KMM | Android App Feedback"
-
+object UiUtils {
     fun getEmailContent(): String {
         return " Android Device : ${CommonUtils.getDeviceId()}\n" +
                 " OS Version Name : ${Build.VERSION.SDK_INT}\n" +

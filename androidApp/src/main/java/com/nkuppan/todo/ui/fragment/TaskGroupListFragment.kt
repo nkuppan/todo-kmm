@@ -1,10 +1,12 @@
 package com.nkuppan.todo.ui.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ancient.essentials.extentions.EventObserver
@@ -15,11 +17,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentGroupListBinding
 import com.nkuppan.todo.db.TaskGroup
+import com.nkuppan.todo.shared.utils.Constants
 import com.nkuppan.todo.ui.adapter.TaskGroupListAdapter
 import com.nkuppan.todo.ui.viewmodel.TaskGroupListViewModel
-import com.nkuppan.todo.utils.Constants
 import com.nkuppan.todo.utils.NavigationManager
 import com.nkuppan.todo.utils.SettingPrefManager
+import com.nkuppan.todo.utils.UiUtils
 
 
 class TaskGroupListFragment : BottomSheetDialogFragment() {
@@ -27,6 +30,14 @@ class TaskGroupListFragment : BottomSheetDialogFragment() {
     private var dataBinding: FragmentGroupListBinding by autoCleared()
 
     private var viewModel: TaskGroupListViewModel by autoCleared()
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                relaunchMainScreen()
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +53,9 @@ class TaskGroupListFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val adapter = TaskGroupListAdapter { aTaskGroup: TaskGroup, aType: Int ->
+        val adapter = TaskGroupListAdapter { aTaskGroup: TaskGroup, _: Int ->
             SettingPrefManager.storeSelectedTaskGroup(aTaskGroupId = aTaskGroup.id)
-            findNavController().setGraph(R.navigation.overall_navigation, null)
-            dismiss()
+            relaunchMainScreen()
         }
 
         dataBinding.groupList.adapter = adapter
@@ -59,7 +69,7 @@ class TaskGroupListFragment : BottomSheetDialogFragment() {
                 requireContext(),
                 Constants.EMAIL_ACCOUNT,
                 Constants.EMAIL_SUBJECT,
-                Constants.getEmailContent()
+                UiUtils.getEmailContent()
             )
         })
 
@@ -68,9 +78,14 @@ class TaskGroupListFragment : BottomSheetDialogFragment() {
         })
 
         viewModel.createNewList.observe(this.viewLifecycleOwner, EventObserver {
-            NavigationManager.openTaskGroupPage(this, null)
+            NavigationManager.openTaskGroupPage(this, null, resultLauncher)
         })
 
         viewModel.loadTaskGroup()
+    }
+
+    private fun relaunchMainScreen() {
+        findNavController().setGraph(R.navigation.overall_navigation, null)
+        dismiss()
     }
 }

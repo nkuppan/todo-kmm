@@ -75,23 +75,27 @@
                 android:background="?attr/listChoiceBackgroundIndicator"
                 android:onClick="@{() -> viewModel.deleteThisTaskGroup()}"
                 android:orientation="vertical"
-                android:padding="@dimen/margin_24dp">
+                android:paddingStart="@dimen/margin_24dp"
+                android:paddingTop="@dimen/margin_16dp"
+                android:paddingEnd="@dimen/margin_24dp"
+                android:paddingBottom="@dimen/margin_16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="@{viewModel.isDefaultList}"
+                    android:enabled="@{!viewModel.isDefaultList}"
                     android:gravity="center_vertical"
                     android:text="@string/delete_list"
-                    android:textColor="?colorOnSurface" />
+                    android:textColor="@color/text_color" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4dp"
-                    android:enabled="@{viewModel.isDefaultList}"
+                    android:enabled="@{!viewModel.isDefaultList}"
                     android:gravity="center_vertical"
-                    android:text="@string/default_list" />
+                    android:text="@string/default_list"
+                    android:textColor="@color/text_color" />
             </LinearLayout>
 
             <TextView

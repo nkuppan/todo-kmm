@@ -1,11 +1,11 @@
 package com.nkuppan.todo.ui.fragment
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ancient.essentials.extentions.EventObserver
@@ -15,7 +15,6 @@ import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentSettingsBinding
 import com.nkuppan.todo.ui.viewmodel.SettingViewModel
 import com.nkuppan.todo.utils.NavigationManager
-import com.nkuppan.todo.utils.RequestCode
 import com.nkuppan.todo.utils.SettingPrefManager
 
 class SettingFragment : BottomSheetDialogFragment() {
@@ -23,6 +22,13 @@ class SettingFragment : BottomSheetDialogFragment() {
     private var dataBinding: FragmentSettingsBinding by autoCleared()
 
     private var viewModel: SettingViewModel by autoCleared()
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                relaunchMainScreen()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +48,8 @@ class SettingFragment : BottomSheetDialogFragment() {
         viewModel.renameList.observe(this.viewLifecycleOwner, {
             NavigationManager.openTaskGroupPage(
                 this,
-                SettingPrefManager.getSelectedTaskGroup()
+                SettingPrefManager.getSelectedTaskGroup(),
+                resultLauncher
             )
         })
 
@@ -59,20 +66,14 @@ class SettingFragment : BottomSheetDialogFragment() {
         })
 
         viewModel.openSortOption.observe(viewLifecycleOwner, EventObserver {
-            findNavController().navigate(R.id.action_settingFragment_to_sortOptionFragment)
-            dismiss()
+            findNavController().navigate(
+                SettingFragmentDirections.actionSettingFragmentToSortOptionFragment()
+            )
         })
     }
 
     private fun relaunchMainScreen() {
         findNavController().setGraph(R.navigation.overall_navigation, null)
         dismiss()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCode.REQUEST_CODE_TASK_GROUP_CREATE && resultCode == Activity.RESULT_OK) {
-            relaunchMainScreen()
-        }
     }
 }
