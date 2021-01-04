@@ -26,4 +26,9 @@
     <string name="light">Light</string>
     <string name="open_source_licenses">Open source licenses</string>
     <string name="enter_list_title">List title</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="revert">Revert</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
 </resources>
