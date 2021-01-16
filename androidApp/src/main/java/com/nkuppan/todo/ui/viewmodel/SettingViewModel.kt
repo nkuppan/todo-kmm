@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ancient.essentials.extentions.Event
 import com.nkuppan.todo.ToDoApplication
+import com.nkuppan.todo.extention.Event
 import com.nkuppan.todo.shared.utils.Constants
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
@@ -26,10 +26,27 @@ class SettingViewModel(private val aApplication: Application) :
     private val _openSortOption: MutableLiveData<Event<Unit>> = MutableLiveData()
     val openSortOption: LiveData<Event<Unit>> = _openSortOption
 
+    private val _themeSelection: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val themeSelection: LiveData<Event<Unit>> = _themeSelection
+
     val isDefaultList: MutableLiveData<Boolean> = MutableLiveData()
 
+    val isCompletedAvailable: MutableLiveData<Boolean> = MutableLiveData()
+
     init {
+        isCompletedAvailable.value = false
         isDefaultList.value = SettingPrefManager.getSelectedTaskGroup() == "1"
+        loadTask()
+    }
+
+    private fun loadTask() {
+        viewModelScope.launch {
+            val tasks = (aApplication as ToDoApplication).repository.getCompletedTask(
+                SettingPrefManager.getSelectedTaskGroup()
+            )
+
+            isCompletedAvailable.value = tasks.isNotEmpty() == true
+        }
     }
 
     fun onRenameListClick() {
@@ -41,6 +58,11 @@ class SettingViewModel(private val aApplication: Application) :
     }
 
     fun deleteAllCompletedTask() {
+
+        if (isCompletedAvailable.value == true) {
+            return
+        }
+
         viewModelScope.launch {
             (aApplication as ToDoApplication).repository.removeCompletedTask(
                 SettingPrefManager.getSelectedTaskGroup()
@@ -67,5 +89,9 @@ class SettingViewModel(private val aApplication: Application) :
                 _taskGroupRemoved.value = Event(Unit)
             }
         }
+    }
+
+    fun onThemeSelectClick() {
+        _themeSelection.value = Event(Unit)
     }
 }

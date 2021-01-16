@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.ancient.essentials.extentions.EventObserver
-import com.ancient.essentials.extentions.autoCleared
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentSettingsBinding
+import com.nkuppan.todo.extention.EventObserver
+import com.nkuppan.todo.extention.autoCleared
 import com.nkuppan.todo.ui.viewmodel.SettingViewModel
 import com.nkuppan.todo.utils.NavigationManager
+import com.nkuppan.todo.utils.NavigationManager.relaunchMainScreen
 import com.nkuppan.todo.utils.SettingPrefManager
 
 class SettingFragment : BottomSheetDialogFragment() {
@@ -65,15 +66,14 @@ class SettingFragment : BottomSheetDialogFragment() {
             relaunchMainScreen()
         })
 
+        viewModel.themeSelection.observe(viewLifecycleOwner, EventObserver {
+            //AppUIUtils.showThemeSelection()
+        })
+
         viewModel.openSortOption.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigate(
                 SettingFragmentDirections.actionSettingFragmentToSortOptionFragment()
             )
         })
-    }
-
-    private fun relaunchMainScreen() {
-        findNavController().setGraph(R.navigation.overall_navigation, null)
-        dismiss()
     }
 }

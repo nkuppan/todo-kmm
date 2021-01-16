@@ -29,6 +29,9 @@
     <string name="delete">Delete</string>
     <string name="done">Done</string>
     <string name="revert">Revert</string>
-    <string name="task_title">Task Title</string>
-    <string name="task_description">Task Description</string>
+    <string name="task_title">Enter Title</string>
+    <string name="task_description">Add Details</string>
+    <string name="send_email_title">Email Chooser</string>
+    <string name="add_date_time">Add date/time</string>
+    <string name="add_sub_task">Add subtasks</string>
 </resources>

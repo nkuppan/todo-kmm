@@ -8,7 +8,6 @@ import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.db.TaskGroup
-import com.nkuppan.todo.shared.CommonUtils
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 import java.util.*
@@ -92,19 +91,7 @@ class TaskListViewModel(private val aApplication: Application) : AndroidViewMode
 
     fun saveThisTaskAsCompleted(aTask: Task) {
         viewModelScope.launch {
-
-            val newTask = Task(
-                aTask.id,
-                aTask.group_id,
-                aTask.title,
-                aTask.description,
-                status = 2,
-                created_on = aTask.created_on,
-                updated_on = CommonUtils.getDateTime().toDouble()
-            )
-
-            (aApplication as ToDoApplication).repository.insertTask(newTask)
-
+            (aApplication as ToDoApplication).repository.markThisTaskAsCompleted(aTask)
             loadTaskList()
         }
     }

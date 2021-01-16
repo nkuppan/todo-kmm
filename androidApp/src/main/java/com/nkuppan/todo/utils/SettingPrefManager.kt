@@ -1,7 +1,6 @@
 package com.nkuppan.todo.utils
 
 import android.content.Context
-import com.ancient.essentials.utils.SecuredPreferenceManager
 
 object SettingPrefManager {
 
@@ -30,7 +29,8 @@ object SettingPrefManager {
     }
 
     fun isCompletedTaskOpened(): Boolean {
-        return SecuredPreferenceManager.getBooleanValue(SettingPrefKeys.COMPLETED_TASK_OPENED) ?: false
+        return SecuredPreferenceManager.getBooleanValue(SettingPrefKeys.COMPLETED_TASK_OPENED)
+            ?: false
     }
 }
 

@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.ancient.essentials.extentions.EventObserver
-import com.ancient.essentials.extentions.autoCleared
-import com.ancient.essentials.view.fragment.BaseFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTaskCreateBinding
+import com.nkuppan.todo.extention.EventObserver
+import com.nkuppan.todo.extention.autoCleared
 import com.nkuppan.todo.ui.viewmodel.TaskCreateViewModel
+import com.nkuppan.todo.utils.AppUIUtils
+import com.nkuppan.todo.utils.NavigationManager.relaunchMainScreen
 
-class TaskCreateFragment : BaseFragment() {
+class TaskCreateFragment : BottomSheetDialogFragment() {
 
     private var viewModel: TaskCreateViewModel by autoCleared()
 
@@ -31,8 +33,14 @@ class TaskCreateFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.success.observe(viewLifecycleOwner, EventObserver {
+        viewModel.selectDateTime.observe(viewLifecycleOwner, EventObserver {
+            AppUIUtils.showDatePickerDialog(this, viewModel.taskEndDate) {
+                viewModel.updateDateTime(it)
+            }
+        })
 
+        viewModel.success.observe(viewLifecycleOwner, EventObserver {
+            relaunchMainScreen()
         })
     }
 }

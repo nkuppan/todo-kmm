@@ -1,24 +1,34 @@
 package com.nkuppan.todo.ui.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import com.ancient.essentials.extentions.autoCleared
-import com.ancient.essentials.view.fragment.BaseFragment
 import com.nkuppan.todo.R
 import com.nkuppan.todo.databinding.FragmentTodoListBinding
 import com.nkuppan.todo.db.Task
+import com.nkuppan.todo.extention.autoCleared
 import com.nkuppan.todo.ui.adapter.CompletedTaskListAdapter
 import com.nkuppan.todo.ui.adapter.PendingTaskListAdapter
 import com.nkuppan.todo.ui.viewmodel.TaskListViewModel
+import com.nkuppan.todo.utils.NavigationManager
+import com.nkuppan.todo.utils.NavigationManager.relaunchMainScreen
 
 class TaskListFragment : BaseFragment() {
 
     private var binding: FragmentTodoListBinding by autoCleared()
 
     private var viewModel: TaskListViewModel by autoCleared()
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                relaunchMainScreen()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +61,11 @@ class TaskListFragment : BaseFragment() {
     }
 
     private fun loadPendingTask() {
-        val adapter = PendingTaskListAdapter { task: Task, i: Int ->
-            if (i == 1) {
-                //TODO
-            } else if (i == 2) {
-                viewModel.saveThisTaskAsCompleted(task)
+        val adapter = PendingTaskListAdapter { aTask: Task, aType: Int ->
+            if (aType == 1) {
+                NavigationManager.openTaskEditPage(this, aTask.id, resultLauncher)
+            } else if (aType == 2) {
+                viewModel.saveThisTaskAsCompleted(aTask)
             }
         }
 
@@ -68,8 +78,10 @@ class TaskListFragment : BaseFragment() {
     }
 
     private fun loadCompletedTasks() {
-        val completedTaskAdapter = CompletedTaskListAdapter { task: Task, i: Int ->
-            //TODO
+        val completedTaskAdapter = CompletedTaskListAdapter { aTask: Task, aType: Int ->
+            if (aType == 1) {
+                NavigationManager.openTaskEditPage(this, aTask.id, resultLauncher)
+            }
         }
 
         binding.completedTaskList.adapter = completedTaskAdapter

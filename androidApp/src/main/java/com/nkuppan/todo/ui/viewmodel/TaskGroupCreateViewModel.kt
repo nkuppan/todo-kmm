@@ -5,11 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ancient.essentials.extentions.Event
 import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
 import com.nkuppan.todo.db.TaskGroup
-import com.nkuppan.todo.shared.CommonUtils
+import com.nkuppan.todo.extention.Event
+import com.nkuppan.todo.shared.utils.CommonUtils
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 import java.util.*

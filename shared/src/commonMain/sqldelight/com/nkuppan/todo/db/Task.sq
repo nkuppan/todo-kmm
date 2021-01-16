@@ -3,13 +3,14 @@ CREATE TABLE Task (
   group_id TEXT NOT NULL,
   title TEXT NOT NULL,
   description TEXT,
+  task_end_date REAL,
   status INTEGER NOT NULL DEFAULT 1,
   created_on REAL NOT NULL,
   updated_on REAL NOT NULL
 );
 
 insertTask:
-INSERT OR REPLACE INTO Task(id, group_id, title, description, status, created_on, updated_on)VALUES(?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO Task(id, group_id, title, description, task_end_date, status, created_on, updated_on)VALUES(?,?,?,?,?,?,?,?);
 
 findAllTask:
 SELECT * FROM Task WHERE group_id = ?;
@@ -31,3 +32,6 @@ DELETE FROM Task WHERE group_id = ? AND status IN(2);
 
 removeAllTasks:
 DELETE FROM Task WHERE group_id = ?;
+
+removeTask:
+DELETE FROM Task WHERE id = ?;

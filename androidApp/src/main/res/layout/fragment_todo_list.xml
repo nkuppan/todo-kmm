@@ -41,12 +41,13 @@
                         android:layout_marginTop="@dimen/margin_24dp"
                         android:layout_marginBottom="@dimen/margin_8dp"
                         android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:text="@{viewModel.selectedTaskGroupName}"
                         android:textSize="32sp"
                         android:textStyle="bold"
-                        tools:text="@string/my_list"/>
+                        tools:text="@string/my_list" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/pending_task_list"

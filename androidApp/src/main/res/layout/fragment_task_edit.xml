@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -25,57 +26,102 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:menu="@menu/menu_task_edit"
-                app:navigationIcon="@drawable/ic_arrow_back" />
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title=" " />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_16dp">
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/task_title_container"
-                style="@style/Todo.TextInputLayout"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/task_group_list"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/task_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/task_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:autofillHints=" "
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:text="@={viewModel.title}" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Todo.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10dp"
                 android:layout_marginTop="@dimen/margin_16dp"
-                android:hint="@string/task_description"
+                android:layout_marginEnd="@dimen/margin_10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/spinner_item" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:autofillHints=" "
+                android:background="@android:color/transparent"
+                android:hint="@string/task_title"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:padding="@dimen/margin_16dp"
+                android:text="@={viewModel.title}"
+                android:textSize="@dimen/text_size_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/task_title_container">
+                app:layout_constraintTop_toBottomOf="@id/task_group_list" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/task_description"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=" "
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_description"
+                android:drawablePadding="@dimen/margin_16dp"
+                android:hint="@string/task_description"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:lines="3"
+                android:maxLines="3"
+                android:minLines="3"
+                android:padding="@dimen/margin_16dp"
+                android:text="@={viewModel.description}"
+                android:textSize="@dimen/text_size_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_title" />
+
+            <TextView
+                android:id="@+id/task_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/listChoiceBackgroundIndicator"
+                android:drawablePadding="@dimen/margin_16dp"
+                android:gravity="center_vertical"
+                android:onClick="@{()->viewModel.selectDateTimeClick()}"
+                android:padding="@dimen/margin_16dp"
+                android:text="@string/add_date_time"
+                android:textSize="@dimen/text_size_16sp"
+                app:drawableStartCompat="@drawable/ic_calendar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/task_date_time">
+
+                <TextView
+                    android:id="@+id/sub_task"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints=" "
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:lines="3"
-                    android:maxLines="3"
-                    android:minLines="3"
-                    android:text="@={viewModel.description}" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:background="?attr/listChoiceBackgroundIndicator"
+                    android:drawablePadding="@dimen/margin_16dp"
+                    android:gravity="center_vertical"
+                    android:onClick="@{()->viewModel.addSubTaskClick()}"
+                    android:padding="@dimen/margin_16dp"
+                    android:text="@string/add_sub_task"
+                    android:textSize="@dimen/text_size_16sp"
+                    app:drawableStartCompat="@drawable/ic_sub_task" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

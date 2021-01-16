@@ -1,4 +1,4 @@
-package com.nkuppan.todo.shared
+package com.nkuppan.todo.shared.utils
 
 import android.os.Build
 import java.util.*

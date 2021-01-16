@@ -3,6 +3,7 @@ package com.nkuppan.todo.shared
 import com.nkuppan.todo.db.MyDatabase
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.db.TaskGroup
+import com.nkuppan.todo.shared.utils.CommonUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -88,6 +89,7 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
             title = aTask.title,
             description = aTask.description,
             status = aTask.status,
+            task_end_date = aTask.task_end_date,
             created_on = aTask.created_on,
             updated_on = aTask.updated_on
         )
@@ -112,5 +114,31 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
             created_on = aTaskGroup.created_on,
             updated_on = aTaskGroup.updated_on
         )
+    }
+
+    fun revertThisTask(aTask: Task) {
+        val newTask = getModifiedTask(aTask, 1)
+        insertTask(newTask)
+    }
+
+    fun markThisTaskAsCompleted(aTask: Task) {
+        val newTask = getModifiedTask(aTask, 2)
+        insertTask(newTask)
+    }
+
+    private fun getModifiedTask(aTask: Task, aStatus: Long) = Task(
+        aTask.id,
+        aTask.group_id,
+        aTask.title,
+        aTask.description,
+        status = aStatus,
+        task_end_date = aTask.task_end_date,
+        created_on = aTask.created_on,
+        updated_on = CommonUtils.getDateTime().toDouble()
+    )
+
+    fun removeTask(aTask: Task) {
+        subTaskQuery.removeThisSubTask(aTask.id)
+        taskQuery.removeTask(aTask.id)
     }
 }

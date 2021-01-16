@@ -1,4 +1,4 @@
-package com.nkuppan.todo.shared
+package com.nkuppan.todo.shared.utils
 
 expect object CommonUtils {
     fun getRandomUUID(): String

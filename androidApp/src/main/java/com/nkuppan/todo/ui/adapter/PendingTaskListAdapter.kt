@@ -3,7 +3,6 @@ package com.nkuppan.todo.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.ancient.essentials.view.adapter.DataBoundListAdapter
 import com.nkuppan.todo.databinding.AdapterPendingTodoItemBinding
 import com.nkuppan.todo.db.Task
 
