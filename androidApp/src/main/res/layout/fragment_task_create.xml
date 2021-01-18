@@ -90,7 +90,7 @@
             android:background="?attr/listChoiceBackgroundIndicator"
             android:gravity="center"
             android:minWidth="80dp"
-            android:onClick="@{()-> viewModel.createTaskClick()}"
+            android:onClick="@{()-> viewModel.saveTaskDetails(false)}"
             android:text="@string/save"
             android:textAllCaps="true"
             android:textColor="?attr/colorSecondary"

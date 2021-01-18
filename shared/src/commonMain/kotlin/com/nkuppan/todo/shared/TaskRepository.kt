@@ -1,6 +1,7 @@
 package com.nkuppan.todo.shared
 
 import com.nkuppan.todo.db.MyDatabase
+import com.nkuppan.todo.db.SubTask
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.db.TaskGroup
 import com.nkuppan.todo.shared.utils.CommonUtils
@@ -126,9 +127,9 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         insertTask(newTask)
     }
 
-    private fun getModifiedTask(aTask: Task, aStatus: Long) = Task(
+    private fun getModifiedTask(aTask: Task, aStatus: Long, aTaskGroupId: String? = null) = Task(
         aTask.id,
-        aTask.group_id,
+        if (aTaskGroupId.isNullOrEmpty()) aTask.group_id else aTaskGroupId,
         aTask.title,
         aTask.description,
         status = aStatus,
@@ -140,5 +141,14 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
     fun removeTask(aTask: Task) {
         subTaskQuery.removeThisSubTask(aTask.id)
         taskQuery.removeTask(aTask.id)
+    }
+
+    fun updateTaskGroup(aTask: Task, aTaskGroup: TaskGroup) {
+        val modifiedTask = getModifiedTask(aTask, aTask.status, aTaskGroup.id)
+        insertTask(modifiedTask)
+    }
+
+    fun getSubTaskList(aTaskId: String): List<SubTask> {
+        return subTaskQuery.findAllSubTask(aTaskId).executeAsList()
     }
 }

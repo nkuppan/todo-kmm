@@ -28,31 +28,25 @@ kotlin {
 
     val ktorVersion = "1.4.0"
     val serializationVersion = "1.0.0-RC"
-    val coroutinesVersion = "1.3.9-native-mt"
+    val coroutinesVersion = "1.4.1"
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation(Libs.Square.SqlDelight.runtime)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation(Libs.Google.material)
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation(Libs.Square.SqlDelight.android)
-            }
-        }
-        val iosMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation(Libs.Square.SqlDelight.native)
-            }
-        }
+    sourceSets["commonMain"].dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+        implementation(Libs.Square.SqlDelight.runtime)
+    }
+
+    sourceSets["androidMain"].dependencies {
+        implementation(Libs.Google.material)
+        implementation("io.ktor:ktor-client-android:$ktorVersion")
+        implementation(Libs.Square.SqlDelight.android)
+    }
+
+    sourceSets["iosMain"].dependencies {
+        implementation("io.ktor:ktor-client-ios:$ktorVersion")
+        implementation(Libs.Square.SqlDelight.native)
     }
 }
 android {
@@ -80,7 +74,8 @@ sqldelight {
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
+    val framework =
+        kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")

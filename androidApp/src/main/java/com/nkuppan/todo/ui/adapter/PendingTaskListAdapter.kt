@@ -41,7 +41,7 @@ class PendingTaskListAdapter(private val listener: ((Task, Int) -> Unit)?) :
             }
         }
 
-        dataBinding.markComplete.setOnCheckedChangeListener { aView, aStatus ->
+        dataBinding.markComplete.setOnCheckedChangeListener { _, _ ->
             dataBinding.viewModel?.let {
                 listener?.invoke(it, 2)
             }

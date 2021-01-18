@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
+import com.nkuppan.todo.db.SubTask
 import com.nkuppan.todo.db.Task
 import com.nkuppan.todo.db.TaskGroup
 import com.nkuppan.todo.extention.Event
 import com.nkuppan.todo.shared.utils.CommonUtils
+import com.nkuppan.todo.utils.AppUIUtils
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 import java.util.*
@@ -23,8 +25,14 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
     var showDescription: MutableLiveData<Boolean> = MutableLiveData()
 
+    private val _changeTaskGroup: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val changeTaskGroup: LiveData<Event<Unit>> = _changeTaskGroup
+
     private val _success: MutableLiveData<Event<Unit>> = MutableLiveData()
     val success: LiveData<Event<Unit>> = _success
+
+    private val _silentSuccess: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val silentSuccess: LiveData<Event<Unit>> = _silentSuccess
 
     private val _deleted: MutableLiveData<Event<Unit>> = MutableLiveData()
     val deleted: LiveData<Event<Unit>> = _deleted
@@ -35,22 +43,30 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
     private val _selectDateTime: MutableLiveData<Event<Unit>> = MutableLiveData()
     val selectDateTime: LiveData<Event<Unit>> = _selectDateTime
 
-    private val _addSubTask: MutableLiveData<Event<Unit>> = MutableLiveData()
-    val addSubTask: LiveData<Event<Unit>> = _addSubTask
-
     private val _snackBarText: MutableLiveData<Event<String>> = MutableLiveData()
     val snackBarMessage: LiveData<Event<String>> = _snackBarText
 
-    private val _taskGroupList: MutableLiveData<Event<List<String>>> = MutableLiveData()
-    val taskGroupList: LiveData<Event<List<String>>> = _taskGroupList
+    private val _taskGroupName: MutableLiveData<Event<String>> = MutableLiveData()
+    val taskGroupName: LiveData<Event<String>> = _taskGroupName
 
-    private var _allTaskGroupList: MutableList<TaskGroup>? = null
+    private var allTaskGroupList: MutableList<TaskGroup>? = null
+
+    var subTaskList: MutableLiveData<List<SubTask>?> = MutableLiveData()
+
+    val taskEndDateString: MutableLiveData<String> = MutableLiveData()
 
     var taskEndDate: Long? = null
+
+    var taskGroupId: String? = null
+
+    init {
+        taskEndDateString.value = aApplication.getString(R.string.add_date_time)
+    }
 
     private var taskValue: Task? = null
 
     fun loadTaskDetails(aTaskId: String?) {
+
         if (aTaskId.isNullOrEmpty()) {
             return
         }
@@ -58,13 +74,29 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
             val task = (aApplication as ToDoApplication).repository.findThisTask(
                 aTaskId
             )
+
             if (task != null) {
                 taskValue = task
                 title.value = task.title
                 description.value = task.description
                 taskEndDate = task.task_end_date?.toLong()
+                taskGroupId = task.group_id
                 _updateMenu.value = Event(Unit)
+
+                updateTaskEndDate()
+
+                val subTaskList = aApplication.repository.getSubTaskList(
+                    aTaskId
+                )
+
+                this@TaskCreateViewModel.subTaskList.value = subTaskList
             }
+        }
+    }
+
+    private fun updateTaskEndDate() {
+        if (taskEndDate != null && taskEndDate!! > 0) {
+            taskEndDateString.value = AppUIUtils.getTaskEndDate(taskEndDate?.toDouble())
         }
     }
 
@@ -76,20 +108,26 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
             if (taskGroupList.isNotEmpty()) {
 
-                _allTaskGroupList = taskGroupList.toMutableList()
+                allTaskGroupList = taskGroupList.toMutableList()
 
-                val taskGroupNameList = mutableListOf<String>()
+                var groupName: String = aApplication.getString(R.string.my_list)
 
                 taskGroupList.forEach {
-                    taskGroupNameList.add(it.group_name)
+                    if (it.id == SettingPrefManager.getSelectedTaskGroup()) {
+                        groupName = it.group_name
+                    }
                 }
 
-                _taskGroupList.value = Event(taskGroupNameList.toList())
+                _taskGroupName.value = Event(groupName)
             }
         }
     }
 
-    fun createTaskClick() {
+    fun saveTaskDetails(saveSilently: Boolean = false) {
+
+        if (saveSilently && taskValue == null) {
+            return
+        }
 
         val title = title.value
         val description = description.value
@@ -100,21 +138,35 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
         viewModelScope.launch {
 
-            (aApplication as ToDoApplication).repository.insertTask(
-                Task(
-                    if (taskValue != null) taskValue!!.id else CommonUtils.getRandomUUID(),
-                    group_id = SettingPrefManager.getSelectedTaskGroup(),
-                    title = title,
-                    description = description,
-                    task_end_date = taskEndDate?.toDouble(),
-                    status = 1,
-                    created_on = if (taskValue != null) taskValue!!.created_on else Date().time.toDouble(),
-                    updated_on = Date().time.toDouble()
-                )
+            val newConstructedTask = Task(
+                if (taskValue != null) taskValue!!.id else CommonUtils.getRandomUUID(),
+                group_id = if (taskGroupId != null)
+                    taskGroupId!!
+                else
+                    SettingPrefManager.getSelectedTaskGroup(),
+                title = title,
+                description = description,
+                task_end_date = taskEndDate?.toDouble(),
+                status = if (taskValue != null) taskValue!!.status else 1,
+                created_on = if (taskValue != null)
+                    taskValue!!.created_on
+                else
+                    CommonUtils.getDateTime().toDouble(),
+                updated_on = CommonUtils.getDateTime().toDouble()
             )
 
-            _success.value = Event(Unit)
-            _snackBarText.value = Event(aApplication.getString(R.string.successfully_added))
+            (aApplication as ToDoApplication).repository.insertTask(newConstructedTask)
+
+            if (!saveSilently) {
+                _success.value = Event(Unit)
+                _snackBarText.value = Event(aApplication.getString(R.string.successfully_added))
+            } else {
+                _silentSuccess.value = Event(Unit)
+            }
+
+            if (saveSilently) {
+                taskValue = newConstructedTask
+            }
         }
     }
 
@@ -126,12 +178,10 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
         showDescription.value = true
     }
 
-    fun addSubTaskClick() {
-        _addSubTask.value = Event(Unit)
-    }
-
     fun updateDateTime(aDate: Long) {
         taskEndDate = aDate
+        updateTaskEndDate()
+        saveTaskDetails(saveSilently = true)
     }
 
     fun markThisTaskAsCompleted() {
@@ -167,5 +217,29 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
                 _success.value = Event(Unit)
             }
         }
+    }
+
+    fun changeTaskGroup() {
+        _changeTaskGroup.value = Event(Unit)
+    }
+
+    fun updateTaskGroup(aTaskGroup: TaskGroup) {
+        viewModelScope.launch {
+            taskValue?.let { aTask ->
+                (aApplication as ToDoApplication).repository.updateTaskGroup(aTask, aTaskGroup)
+                taskGroupId = aTaskGroup.id
+                _taskGroupName.value = Event(aTaskGroup.group_name)
+                _silentSuccess.value = Event(Unit)
+                saveTaskDetails(saveSilently = true)
+            }
+        }
+    }
+
+    fun getSelectedTaskGroupId(): String {
+        return taskValue!!.group_id
+    }
+
+    fun getTaskId(): String {
+        return taskValue!!.id
     }
 }

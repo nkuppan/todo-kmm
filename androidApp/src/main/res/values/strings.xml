@@ -21,7 +21,7 @@
     <string name="delete_list">Delete list</string>
     <string name="default_list">Default list can\'t be deleted</string>
     <string name="rename_list">Rename list</string>
-    <string name="delete_all_completed_tasks">Delete all completed tasks</string>
+    <string name="delete_all_completed_tasks">Delete all completed tasks?</string>
     <string name="theme">Theme</string>
     <string name="light">Light</string>
     <string name="open_source_licenses">Open source licenses</string>
@@ -33,5 +33,15 @@
     <string name="task_description">Add Details</string>
     <string name="send_email_title">Email Chooser</string>
     <string name="add_date_time">Add date/time</string>
-    <string name="add_sub_task">Add subtasks</string>
+    <string name="add_sub_task">Add sub tasks</string>
+    <string name="text_ok">OK</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="delete_message">%d completed task will be permanently removed unless it repeats</string>
+    <string name="clear_text">Clear Text</string>
+    <string name="move_task_to">Move task to</string>
+    <string name="empty"> </string>
+    <string name="selected_item">Selected item</string>
+    <string name="delete_this_list">Delete this list?</string>
+    <string name="delete_list_message">Deleting this list will also delete %d task.</string>
+    <string name="text_delete">Delete</string>
 </resources>

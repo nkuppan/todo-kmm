@@ -17,11 +17,17 @@ class SettingViewModel(private val aApplication: Application) :
     private val _renameList: MutableLiveData<Event<Unit>> = MutableLiveData()
     val renameList: LiveData<Event<Unit>> = _renameList
 
-    private val _allRemoved: MutableLiveData<Event<Unit>> = MutableLiveData()
-    val allRemoved: LiveData<Event<Unit>> = _allRemoved
+    private val _deleteCompletedTaskClick: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val allRemovedClick: LiveData<Event<Unit>> = _deleteCompletedTaskClick
 
-    private val _taskGroupRemoved: MutableLiveData<Event<Unit>> = MutableLiveData()
-    val taskGroupRemoved: LiveData<Event<Unit>> = _taskGroupRemoved
+    private val _deleteCompletedTask: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val deleteCompletedTask: LiveData<Event<Unit>> = _deleteCompletedTask
+
+    private val _taskGroupDeletedClick: MutableLiveData<Event<Long>> = MutableLiveData()
+    val taskGroupDeletedClick: LiveData<Event<Long>> = _taskGroupDeletedClick
+
+    private val _taskGroupDeleted: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val taskGroupDeleted: LiveData<Event<Unit>> = _taskGroupDeleted
 
     private val _openSortOption: MutableLiveData<Event<Unit>> = MutableLiveData()
     val openSortOption: LiveData<Event<Unit>> = _openSortOption
@@ -32,6 +38,8 @@ class SettingViewModel(private val aApplication: Application) :
     val isDefaultList: MutableLiveData<Boolean> = MutableLiveData()
 
     val isCompletedAvailable: MutableLiveData<Boolean> = MutableLiveData()
+
+    var completedTaskCount: Int = 0
 
     init {
         isCompletedAvailable.value = false
@@ -45,7 +53,8 @@ class SettingViewModel(private val aApplication: Application) :
                 SettingPrefManager.getSelectedTaskGroup()
             )
 
-            isCompletedAvailable.value = tasks.isNotEmpty() == true
+            completedTaskCount = tasks.size
+            isCompletedAvailable.value = completedTaskCount > 0
         }
     }
 
@@ -55,6 +64,13 @@ class SettingViewModel(private val aApplication: Application) :
 
     fun openSortOptionMenu() {
         _openSortOption.value = Event(Unit)
+    }
+
+    fun deleteAllCompletedTaskClick() {
+        if (isCompletedAvailable.value == true) {
+            return
+        }
+        _deleteCompletedTaskClick.value = Event(Unit)
     }
 
     fun deleteAllCompletedTask() {
@@ -67,7 +83,27 @@ class SettingViewModel(private val aApplication: Application) :
             (aApplication as ToDoApplication).repository.removeCompletedTask(
                 SettingPrefManager.getSelectedTaskGroup()
             )
-            _allRemoved.value = Event(Unit)
+            _deleteCompletedTask.value = Event(Unit)
+        }
+    }
+
+    fun deleteThisTaskGroupClick() {
+
+        if (isDefaultList.value == true) {
+            return
+        }
+
+        viewModelScope.launch {
+            if (aApplication is ToDoApplication) {
+                val taskCount = aApplication.repository.getAllTasks(
+                    SettingPrefManager.getSelectedTaskGroup()
+                )
+                if (taskCount.isNotEmpty()) {
+                    _taskGroupDeletedClick.value = Event(taskCount.size.toLong())
+                } else {
+                    deleteThisTaskGroup()
+                }
+            }
         }
     }
 
@@ -86,7 +122,7 @@ class SettingViewModel(private val aApplication: Application) :
                     SettingPrefManager.getSelectedTaskGroup()
                 )
                 SettingPrefManager.storeSelectedTaskGroup(Constants.DEFAULT_LIST_ID)
-                _taskGroupRemoved.value = Event(Unit)
+                _taskGroupDeleted.value = Event(Unit)
             }
         }
     }

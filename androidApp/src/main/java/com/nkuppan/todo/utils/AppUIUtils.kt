@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import com.nkuppan.todo.ui.fragment.DateTimePickerFragment
+import java.text.SimpleDateFormat
 import java.util.*
 
 object AppUIUtils {
@@ -15,9 +16,9 @@ object AppUIUtils {
         aDateTime: Long? = null,
         aCallback: ((Long) -> Unit)?
     ) {
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, aDate, aMonth, aYear ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, aYear, aMonth, aDay ->
             val calendar = Calendar.getInstance()
-            calendar.set(aYear, aMonth, aDate)
+            calendar.set(aYear, aMonth, aDay)
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.set(Calendar.MINUTE, 0)
             aCallback?.invoke(calendar.timeInMillis)
@@ -48,5 +49,15 @@ object AppUIUtils {
             this.timePickerListener = timePickerListener
             show(aFragment.childFragmentManager, "time_picker")
         }
+    }
+
+    fun getTaskEndDate(aTaskEndDate: Double?): String {
+
+        aTaskEndDate ?: return ""
+
+        val newDate = Date()
+        newDate.time = aTaskEndDate.toLong()
+        val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        return simpleDateFormat.format(newDate)
     }
 }

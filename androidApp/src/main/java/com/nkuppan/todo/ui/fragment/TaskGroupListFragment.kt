@@ -31,7 +31,7 @@ class TaskGroupListFragment : BottomSheetDialogFragment() {
 
     private var viewModel: TaskGroupListViewModel by autoCleared()
 
-    var resultLauncher =
+    private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 relaunchMainScreen()
