@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/sub_task_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="?attr/listChoiceBackgroundIndicator"
-        android:gravity="center_vertical"
-        android:paddingTop="@dimen/margin_16dp"
-        android:paddingBottom="@dimen/margin_16dp"
-        android:text="@string/add_sub_task"
-        android:textSize="@dimen/text_size_16sp"
-        android:visibility="visible" />
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nkuppan.todo.ui.viewmodel.SubTaskViewModel" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/sub_task_input_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/mark_complete"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/sub_task_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_8dp"
-            android:layout_marginEnd="@dimen/margin_8dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp" />
-
-        <EditText
-            android:id="@+id/sub_task_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints=" "
-            android:background="@android:color/transparent"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/listChoiceBackgroundIndicator"
             android:gravity="center_vertical"
-            android:hint="@string/add_sub_task"
-            android:inputType="text"
-            android:padding="@dimen/margin_16dp"
-            android:textSize="@dimen/text_size_16sp" />
+            android:paddingTop="@dimen/margin_16dp"
+            android:paddingBottom="@dimen/margin_16dp"
+            android:text="@string/add_sub_task"
+            android:textSize="@dimen/text_size_16sp"
+            android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/clear_text"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/clear_text"
-            android:padding="@dimen/margin_8dp"
-            app:srcCompat="@drawable/ic_close" />
+        <LinearLayout
+            android:id="@+id/sub_task_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/mark_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp" />
+
+            <EditText
+                android:id="@+id/sub_task_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints=" "
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="@string/add_sub_task"
+                android:inputType="text"
+                android:padding="@dimen/margin_16dp"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <ImageView
+                android:id="@+id/clear_text"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/clear_text"
+                android:padding="@dimen/margin_8dp"
+                app:srcCompat="@drawable/ic_close" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>
