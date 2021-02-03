@@ -151,4 +151,41 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
     fun getSubTaskList(aTaskId: String): List<SubTask> {
         return subTaskQuery.findAllSubTask(aTaskId).executeAsList()
     }
+
+    fun removeSubTask(aSubTask: SubTask) {
+        subTaskQuery.removeThisSubTask(aSubTask.id)
+    }
+
+    fun insertSubTask(aSubTask: SubTask) {
+        subTaskQuery.insertTask(
+            aSubTask.id,
+            aSubTask.description,
+            aSubTask.parent_task_id,
+            aSubTask.status,
+            aSubTask.created_on,
+            aSubTask.updated_on
+        )
+    }
+
+    fun updateSubTask(aSubTask: SubTask, aDescription: String?) {
+        subTaskQuery.insertTask(
+            aSubTask.id,
+            aDescription ?: "",
+            aSubTask.parent_task_id,
+            aSubTask.status,
+            aSubTask.created_on,
+            aSubTask.updated_on
+        )
+    }
+
+    fun updateSubTask(aSubTask: SubTask, aStatus: Long) {
+        subTaskQuery.insertTask(
+            aSubTask.id,
+            aSubTask.description,
+            aSubTask.parent_task_id,
+            aStatus,
+            aSubTask.created_on,
+            aSubTask.updated_on
+        )
+    }
 }

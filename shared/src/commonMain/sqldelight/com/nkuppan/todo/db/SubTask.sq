@@ -13,11 +13,14 @@ INSERT OR REPLACE INTO SubTask(id, description, parent_task_id, status, created_
 findAllSubTask:
 SELECT * FROM SubTask WHERE parent_task_id = ?;
 
+removeAllAssociatedSubTask:
+DELETE FROM SubTask WHERE parent_task_id = ?;
+
 findTaskById:
 SELECT * FROM SubTask WHERE id = ?;
 
 removeThisSubTask:
-DELETE FROM SubTask WHERE parent_task_id = ?;
+DELETE FROM SubTask WHERE id = ?;
 
 removeAllSubTask:
 DELETE FROM SubTask;

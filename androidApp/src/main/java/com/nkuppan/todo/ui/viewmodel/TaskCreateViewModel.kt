@@ -242,4 +242,40 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
     fun getTaskId(): String {
         return taskValue!!.id
     }
+
+    fun deleteSubTask(aSubTask: SubTask?) {
+
+        aSubTask ?: return
+
+        viewModelScope.launch {
+            (aApplication as ToDoApplication).repository.removeSubTask(aSubTask)
+        }
+    }
+
+    fun createSubTask(aSubTask: SubTask?) {
+
+        aSubTask ?: return
+
+        viewModelScope.launch {
+            (aApplication as ToDoApplication).repository.insertSubTask(aSubTask)
+        }
+    }
+
+    fun updateSubTask(aSubTask: SubTask?, aDescription: String?) {
+
+        aSubTask ?: return
+
+        viewModelScope.launch {
+            (aApplication as ToDoApplication).repository.updateSubTask(aSubTask, aDescription)
+        }
+    }
+
+    fun updateSubTaskStatus(aSubTask: SubTask?) {
+
+        aSubTask ?: return
+
+        viewModelScope.launch {
+            (aApplication as ToDoApplication).repository.updateSubTask(aSubTask, 2L)
+        }
+    }
 }

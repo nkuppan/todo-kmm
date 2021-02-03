@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
@@ -151,7 +148,9 @@ class TaskEditFragment : BaseFragment() {
 
             if (!it.isNullOrEmpty()) {
                 it.forEach {
-                    addSubTaskContainer(it)
+                    if (it.status != 2L) {
+                        addSubTaskContainer(it)
+                    }
                 }
             }
         })
@@ -189,21 +188,22 @@ class TaskEditFragment : BaseFragment() {
 
         val subTaskText = subTaskView.findViewById<TextView>(R.id.sub_task_text)
         subTaskText.setOnClickListener {
-            addSubTaskContainer(
-                SubTask(
-                    id = CommonUtils.getRandomUUID(),
-                    description = "",
-                    parent_task_id = viewModel.getTaskId(),
-                    status = 1,
-                    created_on = CommonUtils.getDateTime().toDouble(),
-                    updated_on = CommonUtils.getDateTime().toDouble()
-                )
+            val subTask = SubTask(
+                id = CommonUtils.getRandomUUID(),
+                description = "",
+                parent_task_id = viewModel.getTaskId(),
+                status = 1,
+                created_on = CommonUtils.getDateTime().toDouble(),
+                updated_on = CommonUtils.getDateTime().toDouble()
             )
+            viewModel.createSubTask(subTask)
+            addSubTaskContainer(subTask)
         }
 
         val container = subTaskView.findViewById<LinearLayout>(R.id.sub_task_input_container)
         val input = subTaskView.findViewById<EditText>(R.id.sub_task_input)
-        val clearText = subTaskView.findViewById<ImageView>(R.id.clear_text)
+        val deleteSubTaskView = subTaskView.findViewById<ImageView>(R.id.clear_text)
+        val markAsCompleted = subTaskView.findViewById<RadioButton>(R.id.mark_complete)
 
         input.setText(aSubTask?.description)
 
@@ -213,7 +213,7 @@ class TaskEditFragment : BaseFragment() {
             }
 
             override fun onTextChanged(aText: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                clearText.visibility = if (aText?.isNotEmpty() == true) View.VISIBLE else View.GONE
+                viewModel.updateSubTask(aSubTask, aText?.toString())
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -221,10 +221,20 @@ class TaskEditFragment : BaseFragment() {
             }
         })
 
-        clearText.setOnClickListener {
-            subTaskViewList.remove(subTaskView)
-            dataBinding.subTaskContainer.removeView(subTaskView)
-            dataBinding.subTaskContainer.invalidate()
+        markAsCompleted.setOnCheckedChangeListener { _, checked ->
+            if (checked) {
+                viewModel.updateSubTaskStatus(aSubTask)
+                removeSubTaskView(subTaskView)
+            }
+        }
+
+        input.setOnFocusChangeListener { _, focus ->
+            deleteSubTaskView.visibility = if (focus) View.VISIBLE else View.GONE
+        }
+
+        deleteSubTaskView.setOnClickListener {
+            viewModel.deleteSubTask(aSubTask)
+            removeSubTaskView(subTaskView)
         }
 
         if (aSubTask == null) {
@@ -233,14 +243,23 @@ class TaskEditFragment : BaseFragment() {
         } else {
             subTaskText.visibility = View.GONE
             container.visibility = View.VISIBLE
-            clearText.visibility =
+            deleteSubTaskView.visibility =
                 if (aSubTask.description.isNotEmpty()) View.VISIBLE else View.GONE
-            input.isFocusable = true
             subTaskList.add(aSubTask)
         }
 
         subTaskViewList.add(0, subTaskView)
         dataBinding.subTaskContainer.addView(subTaskView, 0)
+
+        dataBinding.taskTitle.postDelayed({
+            input.isFocusable = true
+        }, 500)
+    }
+
+    private fun removeSubTaskView(subTaskView: View) {
+        subTaskViewList.remove(subTaskView)
+        dataBinding.subTaskContainer.removeView(subTaskView)
+        dataBinding.subTaskContainer.invalidate()
     }
 
     private fun enableRevertOrDone() {
