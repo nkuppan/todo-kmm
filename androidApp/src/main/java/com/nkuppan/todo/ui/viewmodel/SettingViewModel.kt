@@ -67,7 +67,7 @@ class SettingViewModel(private val aApplication: Application) :
     }
 
     fun deleteAllCompletedTaskClick() {
-        if (isCompletedAvailable.value == true) {
+        if (isCompletedAvailable.value == false) {
             return
         }
         _deleteCompletedTaskClick.value = Event(Unit)
@@ -75,7 +75,7 @@ class SettingViewModel(private val aApplication: Application) :
 
     fun deleteAllCompletedTask() {
 
-        if (isCompletedAvailable.value == true) {
+        if (isCompletedAvailable.value == false) {
             return
         }
 

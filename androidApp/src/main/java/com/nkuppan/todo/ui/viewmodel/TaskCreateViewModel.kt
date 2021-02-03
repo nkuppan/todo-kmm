@@ -55,15 +55,18 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
     val taskEndDateString: MutableLiveData<String> = MutableLiveData()
 
+    val taskCompleted: MutableLiveData<Boolean> = MutableLiveData()
+
     var taskEndDate: Long? = null
 
     var taskGroupId: String? = null
 
+    private var taskValue: Task? = null
+
     init {
+        taskCompleted.value = false
         taskEndDateString.value = aApplication.getString(R.string.add_date_time)
     }
-
-    private var taskValue: Task? = null
 
     fun loadTaskDetails(aTaskId: String?) {
 
@@ -85,11 +88,14 @@ class TaskCreateViewModel(private val aApplication: Application) : AndroidViewMo
 
                 updateTaskEndDate()
 
-                val subTaskList = aApplication.repository.getSubTaskList(
-                    aTaskId
-                )
+                taskCompleted.value = task.status == 2L
 
-                this@TaskCreateViewModel.subTaskList.value = subTaskList
+                if (taskCompleted.value == false) {
+                    val subTaskList = aApplication.repository.getSubTaskList(
+                        aTaskId
+                    )
+                    this@TaskCreateViewModel.subTaskList.value = subTaskList
+                }
             }
         }
     }

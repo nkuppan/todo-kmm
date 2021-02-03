@@ -45,13 +45,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8dp"
                     android:drawablePadding="@dimen/margin_16dp"
+                    android:enabled="@{!viewModel.taskCompleted}"
                     android:onClick="@{() -> viewModel.changeTaskGroup()}"
                     android:padding="@dimen/margin_8dp"
                     android:text="@string/my_list"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="@color/action_text_color"
                     android:textSize="@dimen/text_size_16sp"
                     app:drawableEndCompat="@drawable/ic_arrow_down"
-                    app:drawableTint="?attr/colorPrimary"
+                    app:drawableTint="@color/action_text_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,15 +62,18 @@
                     android:layout_height="wrap_content"
                     android:autofillHints=" "
                     android:background="@android:color/transparent"
+                    android:enabled="@{!viewModel.taskCompleted}"
                     android:hint="@string/task_title"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:padding="@dimen/margin_16dp"
                     android:text="@={viewModel.title}"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/task_group_list" />
+                    app:layout_constraintTop_toBottomOf="@id/task_group_list"
+                    app:setStrike="@{viewModel.taskCompleted}" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/task_description"
@@ -79,6 +83,7 @@
                     android:background="@android:color/transparent"
                     android:drawableStart="@drawable/ic_description"
                     android:drawablePadding="@dimen/margin_16dp"
+                    android:enabled="@{!viewModel.taskCompleted}"
                     android:hint="@string/task_description"
                     android:imeOptions="actionDone"
                     android:inputType="text"
@@ -87,10 +92,12 @@
                     android:minLines="3"
                     android:padding="@dimen/margin_16dp"
                     android:text="@={viewModel.description}"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/task_title" />
+                    app:layout_constraintTop_toBottomOf="@id/task_title"
+                    app:setStrike="@{viewModel.taskCompleted}" />
 
                 <TextView
                     android:id="@+id/task_date_time"
@@ -98,11 +105,12 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/listChoiceBackgroundIndicator"
                     android:drawablePadding="@dimen/margin_16dp"
+                    android:enabled="@{!viewModel.taskCompleted}"
                     android:gravity="center_vertical"
                     android:onClick="@{()->viewModel.selectDateTimeClick()}"
                     android:padding="@dimen/margin_16dp"
                     android:text="@{viewModel.taskEndDateString}"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size_16sp"
                     app:drawableStartCompat="@drawable/ic_calendar"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:visibility="@{!viewModel.taskCompleted ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/task_date_time">
