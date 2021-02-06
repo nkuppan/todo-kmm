@@ -16,6 +16,7 @@ import com.nkuppan.todo.databinding.FragmentSettingsBinding
 import com.nkuppan.todo.extention.EventObserver
 import com.nkuppan.todo.extention.autoCleared
 import com.nkuppan.todo.ui.viewmodel.SettingViewModel
+import com.nkuppan.todo.utils.AppUIUtils
 import com.nkuppan.todo.utils.NavigationManager
 import com.nkuppan.todo.utils.NavigationManager.relaunchMainScreen
 import com.nkuppan.todo.utils.SettingPrefManager
@@ -102,7 +103,9 @@ class SettingFragment : BottomSheetDialogFragment() {
         })
 
         viewModel.themeSelection.observe(viewLifecycleOwner, EventObserver {
-            //AppUIUtils.showThemeSelection()
+            AppUIUtils.showThemeSelection(requireContext()) {
+                relaunchMainScreen()
+            }
         })
 
         viewModel.openSortOption.observe(viewLifecycleOwner, EventObserver {

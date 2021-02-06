@@ -24,6 +24,14 @@ object SettingPrefManager {
         return SecuredPreferenceManager.getIntValue(SettingPrefKeys.SELECTED_FILTER) ?: 0
     }
 
+    fun storeThemeType(aThemeType: Int) {
+        SecuredPreferenceManager.storeValue(SettingPrefKeys.THEME_TYPE, aThemeType)
+    }
+
+    fun getThemeType(): Int {
+        return SecuredPreferenceManager.getIntValue(SettingPrefKeys.THEME_TYPE) ?: 0
+    }
+
     fun storeCompletedTaskOpenedStatus(isOpened: Boolean) {
         SecuredPreferenceManager.storeValue(SettingPrefKeys.SELECTED_FILTER, isOpened)
     }
@@ -37,6 +45,8 @@ object SettingPrefManager {
 object SettingPrefKeys {
 
     const val PREF_NAME = "settings_pref"
+
+    const val THEME_TYPE = "theme_type"
 
     const val SELECTED_TASK_GROUP = "selected_task_group"
     const val SELECTED_FILTER = "selected_filter"

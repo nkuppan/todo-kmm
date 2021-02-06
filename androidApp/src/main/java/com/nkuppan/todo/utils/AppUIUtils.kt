@@ -2,9 +2,15 @@ package com.nkuppan.todo.utils
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.widget.TimePicker
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nkuppan.todo.R
 import com.nkuppan.todo.ui.fragment.DateTimePickerFragment
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,5 +65,37 @@ object AppUIUtils {
         newDate.time = aTaskEndDate.toLong()
         val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
         return simpleDateFormat.format(newDate)
+    }
+
+    fun showThemeSelection(aContext: Context, aCallback: ((Unit) -> Unit)?) {
+
+        val themeOptions = getThemes().map {
+            aContext.getString(it.titleResId)
+        }.toTypedArray()
+
+        MaterialAlertDialogBuilder(aContext)
+            .setTitle(R.string.choose_theme)
+            .setSingleChoiceItems(
+                themeOptions,
+                SettingPrefManager.getThemeType()
+            ) { aDialog: DialogInterface, aOption: Int ->
+                AppCompatDelegate.setDefaultNightMode(
+                    getThemes()[aOption].mode
+                )
+                SettingPrefManager.storeThemeType(aOption)
+                aCallback?.invoke(Unit)
+                aDialog.dismiss()
+            }.show()
+    }
+
+    fun getThemes(): List<Theme> {
+        return when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> listOf(
+                Theme.LIGHT,
+                Theme.DARK,
+                Theme.SYSTEM_DEFAULT
+            )
+            else -> listOf(Theme.LIGHT, Theme.DARK, Theme.SET_BY_BATTERY_SAVER)
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -11,6 +11,5 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
-
 
 </resources>

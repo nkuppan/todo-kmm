@@ -44,4 +44,8 @@
     <string name="delete_this_list">Delete this list?</string>
     <string name="delete_list_message">Deleting this list will also delete %d task.</string>
     <string name="text_delete">Delete</string>
+    <string name="choose_theme">Choose theme</string>
+    <string name="dark">Dark</string>
+    <string name="set_by_battery_saver">Set by Battery Saver</string>
+    <string name="system_default">System default</string>
 </resources>

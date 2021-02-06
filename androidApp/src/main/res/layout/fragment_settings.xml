@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4dp"
                     android:gravity="center_vertical"
-                    android:text="@string/my_order" />
+                    android:text="@{viewModel.sortOrder}" />
             </LinearLayout>
 
             <View
@@ -143,13 +143,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4dp"
                     android:gravity="center_vertical"
-                    android:text="@string/light" />
+                    android:text="@{viewModel.themeType}" />
             </LinearLayout>
 
-            <View
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey_light" />
+                android:layout_height="20dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
