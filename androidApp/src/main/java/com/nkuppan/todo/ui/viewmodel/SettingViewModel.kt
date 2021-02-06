@@ -5,9 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nkuppan.todo.R
 import com.nkuppan.todo.ToDoApplication
 import com.nkuppan.todo.extention.Event
 import com.nkuppan.todo.shared.utils.Constants
+import com.nkuppan.todo.utils.AppUIUtils
 import com.nkuppan.todo.utils.SettingPrefManager
 import kotlinx.coroutines.launch
 
@@ -39,11 +41,19 @@ class SettingViewModel(private val aApplication: Application) :
 
     val isCompletedAvailable: MutableLiveData<Boolean> = MutableLiveData()
 
+    val themeType: MutableLiveData<String> = MutableLiveData()
+
+    val sortOrder: MutableLiveData<String> = MutableLiveData()
+
     var completedTaskCount: Int = 0
 
     init {
         isCompletedAvailable.value = false
         isDefaultList.value = SettingPrefManager.getSelectedTaskGroup() == "1"
+        sortOrder.value =
+            aApplication.resources.getStringArray(R.array.sort_options)[SettingPrefManager.getFilterType()]
+        themeType.value =
+            aApplication.resources.getString(AppUIUtils.getThemes()[SettingPrefManager.getThemeType()].titleResId)
         loadTask()
     }
 
