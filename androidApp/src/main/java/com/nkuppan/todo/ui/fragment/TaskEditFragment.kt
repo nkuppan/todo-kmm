@@ -147,6 +147,7 @@ class TaskEditFragment : BaseFragment() {
             addSubTaskContainer()
 
             if (!it.isNullOrEmpty()) {
+                subTaskList.addAll(it)
                 it.forEach {
                     if (it.status != 2L) {
                         addSubTaskContainer(it)
@@ -246,6 +247,10 @@ class TaskEditFragment : BaseFragment() {
             deleteSubTaskView.visibility =
                 if (aSubTask.description.isNotEmpty()) View.VISIBLE else View.GONE
             subTaskList.add(aSubTask)
+
+            input.postDelayed({
+                input.isFocusable = true
+            }, 250)
         }
 
         subTaskViewList.add(0, subTaskView)

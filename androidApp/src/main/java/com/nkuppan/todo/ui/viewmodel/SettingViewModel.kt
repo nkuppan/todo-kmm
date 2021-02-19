@@ -45,9 +45,14 @@ class SettingViewModel(private val aApplication: Application) :
 
     val sortOrder: MutableLiveData<String> = MutableLiveData()
 
+    val orderName: MutableLiveData<String> = MutableLiveData()
+
     var completedTaskCount: Int = 0
 
     init {
+        orderName.value = aApplication.resources.getStringArray(
+            R.array.sort_options
+        )[SettingPrefManager.getFilterType()]
         isCompletedAvailable.value = false
         isDefaultList.value = SettingPrefManager.getSelectedTaskGroup() == "1"
         sortOrder.value =
@@ -60,7 +65,8 @@ class SettingViewModel(private val aApplication: Application) :
     private fun loadTask() {
         viewModelScope.launch {
             val tasks = (aApplication as ToDoApplication).repository.getCompletedTask(
-                SettingPrefManager.getSelectedTaskGroup()
+                SettingPrefManager.getSelectedTaskGroup(),
+                SettingPrefManager.getFilterType()
             )
 
             completedTaskCount = tasks.size

@@ -15,11 +15,17 @@ INSERT OR REPLACE INTO Task(id, group_id, title, description, task_end_date, sta
 findAllTask:
 SELECT * FROM Task WHERE group_id = ?;
 
-findPendingTask:
-SELECT * FROM Task WHERE status IN(1) AND  group_id = ?;
+findPendingTaskOrderByCreatedDate:
+SELECT * FROM Task WHERE status IN(1) AND  group_id = ? ORDER BY created_on DESC;
 
-findCompletedTask:
-SELECT * FROM Task WHERE status IN(2) AND  group_id = ?;
+findCompletedTaskOrderByCreatedDate:
+SELECT * FROM Task WHERE status IN(2) AND  group_id = ? ORDER BY created_on DESC;
+
+findPendingTaskOrderByEndDate:
+SELECT * FROM Task WHERE status IN(1) AND  group_id = ? ORDER BY task_end_date DESC;
+
+findCompletedTaskOrderByEndDate:
+SELECT * FROM Task WHERE status IN(2) AND  group_id = ? ORDER BY task_end_date DESC;
 
 findTaskById:
 SELECT * FROM Task WHERE id = ?;

@@ -55,12 +55,26 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
         return taskQuery.findAllTask(aGroupId).executeAsList()
     }
 
-    fun getPendingTask(aGroupId: String): List<Task> {
-        return taskQuery.findPendingTask(aGroupId).executeAsList()
+    fun getPendingTask(aGroupId: String, aSortOrder: Int): List<Task> {
+        return when (aSortOrder) {
+            0 -> {
+                taskQuery.findPendingTaskOrderByCreatedDate(aGroupId).executeAsList()
+            }
+            else -> {
+                taskQuery.findPendingTaskOrderByEndDate(aGroupId).executeAsList()
+            }
+        }
     }
 
-    fun getCompletedTask(aGroupId: String): List<Task> {
-        return taskQuery.findCompletedTask(aGroupId).executeAsList()
+    fun getCompletedTask(aGroupId: String, aSortOrder: Int): List<Task> {
+        return when (aSortOrder) {
+            0 -> {
+                taskQuery.findCompletedTaskOrderByCreatedDate(aGroupId).executeAsList()
+            }
+            else -> {
+                taskQuery.findCompletedTaskOrderByEndDate(aGroupId).executeAsList()
+            }
+        }
     }
 
     fun removeAllTasks(aTaskGroupId: String) {
@@ -72,15 +86,7 @@ open class TaskRepository(databaseDriverFactoryFactory: DatabaseDriverFactory) {
     }
 
     fun findThisTask(aId: String): Task? {
-
-        val task = taskQuery.findTaskById(aId).executeAsOneOrNull()
-
-        if (task != null) {
-            //TODO read tags and sub tasks
-            //val tagsList = tagsDBQuery.findTagById().executeAsList();
-        }
-
-        return task
+        return taskQuery.findTaskById(aId).executeAsOneOrNull()
     }
 
     fun insertTask(aTask: Task) {

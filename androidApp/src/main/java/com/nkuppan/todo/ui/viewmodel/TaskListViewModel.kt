@@ -47,7 +47,8 @@ class TaskListViewModel(private val aApplication: Application) : AndroidViewMode
 
     private fun loadPendingTask() {
         val pendingTasks = (aApplication as ToDoApplication).repository.getPendingTask(
-            SettingPrefManager.getSelectedTaskGroup()
+            SettingPrefManager.getSelectedTaskGroup(),
+            SettingPrefManager.getFilterType()
         )
         this@TaskListViewModel.taskList.value = pendingTasks
         this@TaskListViewModel.pendingTaskFound.value = pendingTasks.isNotEmpty()
@@ -55,7 +56,8 @@ class TaskListViewModel(private val aApplication: Application) : AndroidViewMode
 
     private fun loadCompletedTasks() {
         val completedTask = (aApplication as ToDoApplication).repository.getCompletedTask(
-            SettingPrefManager.getSelectedTaskGroup()
+            SettingPrefManager.getSelectedTaskGroup(),
+            SettingPrefManager.getFilterType()
         )
         this@TaskListViewModel.completedList.value = completedTask
         this@TaskListViewModel.completedTaskFound.value = completedTask.isNotEmpty()
