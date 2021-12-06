@@ -9,12 +9,11 @@ It displays list to manage different types.
 
 <br>
 
-| To-Do List | Details | Task Group List | Filters |
+| List | Details | Task Group List | Filters |
 | ------ | ----- | ------ | ----- |
-| ![Rankings](art/screenshots/screenshot-1.png) | ![Predict](art/screenshots/screenshot-2.png) | ![Predictions](art/screenshots/screenshot-3.png) | ![Live](art/screenshots/screenshot-4.png) |
+| ![List](art/screenshots/screenshot-1.png) | ![Details](art/screenshots/screenshot-2.png) | ![Group](art/screenshots/screenshot-3.png) | ![Filter](art/screenshots/screenshot-4.png) |
 
 ## Android development
-
 
 
 Ranker attempts to make use of the latest Android libraries and best practices:
@@ -26,6 +25,7 @@ Ranker attempts to make use of the latest Android libraries and best practices:
 * Designed and built using Material Design [components](https://material.io/components/) and [theming](https://material.io/design/material-theming/overview.html#material-theming)
 * Full [dark theme](https://material.io/design/color/dark-theme.html) support
 * Meaningful use of [Material Motion](https://material.io/design/motion/the-motion-system.html) transition
+* SQLDelight is used to store data as common for both android & iOS [SQL Delight](https://github.com/cashapp/sqldelight)
 
 ## Inspiration
 
