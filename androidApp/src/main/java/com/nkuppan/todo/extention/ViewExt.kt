@@ -39,7 +39,7 @@ fun setStrike(aView: View, aId: String) {
         if (SettingPrefManager.getSelectedTaskGroup() == aId) {
             ContextCompat.getColor(aView.context, R.color.grey_light)
         } else {
-            ThemeUtils.getThemeAttrColor(aView.context, R.attr.colorSurface)
+            ThemeUtils.getThemeAttrColor(aView.context, android.R.attr.colorAccent)
         }
     )
 }

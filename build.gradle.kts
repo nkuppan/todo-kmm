@@ -1,36 +1,22 @@
 buildscript {
     repositories {
-        gradlePluginPortal()
-        jcenter()
         google()
-        mavenCentral()
     }
-
     dependencies {
-        //Below plugins are common gradle plugin to support android
-        classpath(Libs.androidGradlePlugin)
-        classpath(Libs.Kotlin.gradlePlugin)
-
-        //Below plugins are common gradle plugin to support android
-        classpath(Libs.Google.servicesPlugin)
-        classpath(Libs.Google.OssLicenses.gradlePlugin)
-        classpath(Libs.Firebase.Crashlytics.gradlePlugin)
-        classpath(Libs.AndroidX.Navigation.safeArgsGradlePlugin)
-
-        //This below deps are added to support kotlin multi-platform
-        classpath(Libs.Kotlin.serializationPlugin)
-        classpath(Libs.Square.SqlDelight.gradlePlugin)
+        classpath(libs.google.oss.licenses.plugin)
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-    }
-}
-
-tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
+plugins {
+    //trick: for the same plugin versions in all sub-modules
+    alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.android.library).apply(false)
+    alias(libs.plugins.android.navigation.safe).apply(false)
+    alias(libs.plugins.kotlinAndroid).apply(false)
+    alias(libs.plugins.kotlinMultiplatform).apply(false)
+    alias(libs.plugins.sqldelight).apply(false)
+    alias(libs.plugins.ksp).apply(false)
+    alias(libs.plugins.hilt).apply(false)
+    alias(libs.plugins.benchmark).apply(false)
+    alias(libs.plugins.firebase.crashlytics).apply(false)
 }

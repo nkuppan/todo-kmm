@@ -9,8 +9,8 @@ It displays list to manage different types.
 
 <br>
 
-| List | Details | Task Group List | Filters |
-| ------ | ----- | ------ | ----- |
+| List                                      | Details                                      | Task Group List                            | Filters                                     |
+|-------------------------------------------|----------------------------------------------|--------------------------------------------|---------------------------------------------|
 | ![List](art/screenshots/screenshot-1.png) | ![Details](art/screenshots/screenshot-2.png) | ![Group](art/screenshots/screenshot-3.png) | ![Filter](art/screenshots/screenshot-4.png) |
 
 ## Android development

@@ -1,8 +1,8 @@
 package com.nkuppan.todo.shared
 
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.nkuppan.todo.db.MyDatabase
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
 /**
  * Created by ancientinc on 20/11/20.

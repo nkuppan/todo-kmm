@@ -1,8 +1,8 @@
 object Versions {
-    const val compileSdk = 30
+    const val compileSdk = 34
     const val minSdk = 21
-    const val targetSdk = 30
-    const val androidGradlePlugin = "4.1.2"
+    const val targetSdk = 34
+    const val androidGradlePlugin = "8.3.0"
     const val ktlint = "0.39.0"
     const val coil = "1.1.0"
     const val insetter = "0.3.1"
@@ -12,8 +12,8 @@ object Versions {
     const val kermit = "0.1.8"
 
     object Kotlin {
-        const val kotlin = "1.4.20"
-        const val coroutines = "1.4.2"
+        const val kotlin = "1.9.21"
+        const val coroutines = "1.7.3"
     }
 
     object AndroidX {

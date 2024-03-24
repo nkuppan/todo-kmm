@@ -1,85 +1,62 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    id("com.android.library")
-    id("kotlin-android-extensions")
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
-
-    val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iOSTarget("ios") {
-        binaries {
-            framework {
-                baseName = "shared"
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
             }
         }
     }
 
-    android()
-
-    val ktorVersion = "1.4.0"
-    val serializationVersion = "1.0.0-RC"
-    val coroutinesVersion = "1.4.1"
-
-    sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-        implementation("io.ktor:ktor-client-core:$ktorVersion")
-        implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-        implementation(Libs.Square.SqlDelight.runtime)
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "shared"
+            isStatic = true
+        }
     }
 
-    sourceSets["androidMain"].dependencies {
-        implementation(Libs.Google.material)
-        implementation("io.ktor:ktor-client-android:$ktorVersion")
-        implementation(Libs.Square.SqlDelight.android)
-    }
-
-    sourceSets["iosMain"].dependencies {
-        implementation("io.ktor:ktor-client-ios:$ktorVersion")
-        implementation(Libs.Square.SqlDelight.native)
-    }
-}
-android {
-    compileSdkVersion(Versions.compileSdk)
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    defaultConfig {
-        minSdkVersion(Versions.minSdk)
-        targetSdkVersion(Versions.targetSdk)
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.sqldelight.common)
+            implementation(libs.kotlinx.coroutine.core)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
+        }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.ios)
         }
     }
 }
 
-sqldelight {
-    database("MyDatabase") {
-        packageName = "com.nkuppan.todo.db"
+android {
+    namespace = "com.example.myapplication"
+    compileSdk = 34
+    defaultConfig {
+        minSdk = 24
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
-val packForXcode by tasks.creating(Sync::class) {
-    group = "build"
-    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework =
-        kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
-    inputs.property("mode", mode)
-    dependsOn(framework.linkTask)
-    val targetDir = File(buildDir, "xcode-frameworks")
-    from({ framework.outputDirectory })
-    into(targetDir)
+sqldelight {
+    databases {
+        create("MyDatabase") {
+            packageName.set("com.nkuppan.todo.db")
+        }
+    }
 }
-tasks.getByName("build").dependsOn(packForXcode)
